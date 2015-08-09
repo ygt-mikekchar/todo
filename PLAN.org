@@ -2,7 +2,7 @@
 
 The file is for Emacs Org mode: http://orgmode.org/
 
-** <2015-08-09 Sun> [/]
+** <2015-08-09 Sun> [5/7]
 *** DONE Create Game description
     CLOSED: [2015-08-09 Sun 15:12]
 *** DONE Create initial plan
@@ -31,7 +31,8 @@ The file is for Emacs Org mode: http://orgmode.org/
      Looks like the only way to do this is with the gh-pages branch
 **** DONE Update README to explain how to deploy
      CLOSED: [2015-08-09 Sun 21:40]
-*** TODO Put link to source code on site to comply with AGPL
+*** DONE Put link to source code on site to comply with AGPL
+    CLOSED: [2015-08-09 Sun 21:53]
 *** TODO Compile assets
 **** TODO Create a webpack loader that does mostly nothing
      see https://webpack.github.io/docs/tutorials/getting-started/ 
