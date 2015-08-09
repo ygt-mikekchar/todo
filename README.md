@@ -11,6 +11,8 @@ Currently Beans is in active development.  All of the features are
 currently unimplemented.  However, you can follow
 [the current progress](build/BeansII.html)
 
+<script type="text/javascript" src="boo.js" charset="utf-8"></script>
+
 ## Description
 
 Beans is a game that tries to model technical debt.  The idea is that
