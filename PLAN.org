@@ -48,7 +48,8 @@ The file is for Emacs Org mode: http://orgmode.org/
      It seems that it will not work, which sucks.  Will have to include
      Jasmine in the project :-P
      Maybe a submodule is in order
-**** TODO Create a separate test loader html file (see jasmine home page)
+**** DONE Create a separate test loader html file (see jasmine home page)
+     CLOSED: [2015-08-10 Mon 08:47]
 **** TODO Create a webpack loader that builds a spec.js file
 **** TODO Run everything using webpack-dev-server
     
@@ -58,3 +59,4 @@ The file is for Emacs Org mode: http://orgmode.org/
     3. Try to install Jasmine through npm
     4. Compare standalone jasmine to npm jasmine
     5. Install jasmine via submodule
+    6. BIG Pomodoro.  Get the fscking jasmine runner set up. Seriously... WTF is up with documentation...
