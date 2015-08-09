@@ -94,8 +94,17 @@ the headaches to a minimum for myself, I've decided to go this way.
 
 ## Development
 
-### How to Deploy
 
+### How to Build
+You must build the Javascript.
+
+```
+npm run build
+```
+
+Do this before you merge into master.
+
+### How to Deploy
 Beans II is hosted on Github.  To deploy simply merge master into the
 gh-pages branch.  It will be available on http://mikekchar.github.io/BeansII
 within about 10 minutes.
