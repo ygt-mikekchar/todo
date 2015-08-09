@@ -94,8 +94,16 @@ the headaches to a minimum for myself, I've decided to go this way.
 
 ## Development
 
+### Tests
+
+To run the tests you must first install Jasmine.
+
+```
+git submodules update --init --recursive
+```
 
 ### How to Build
+
 You must build the Javascript.
 
 ```
