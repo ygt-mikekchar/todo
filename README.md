@@ -92,3 +92,10 @@ of games that I will write in Coffeescript and I wish to share code
 freely between them.  Other projects will need AGPL, so just to keep
 the headaches to a minimum for myself, I've decided to go this way.
 
+## Development
+
+### How to Deploy
+
+Beans II is hosted on Github.  To deploy simply merge master into the
+gh-pages branch.  It will be available on http://mikekchar.github.io/BeansII
+within about 10 minutes.
