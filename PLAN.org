@@ -2,7 +2,7 @@
 
 The file is for Emacs Org mode: http://orgmode.org/
 
-** <2015-08-09 Sun> [5/7]
+** <2015-08-09 Sun> [6/7]
 *** DONE Create Game description
     CLOSED: [2015-08-09 Sun 15:12]
 *** DONE Create initial plan
@@ -17,7 +17,8 @@ The file is for Emacs Org mode: http://orgmode.org/
      No. V8 in current Node is almost exactly 1 year old.  I think this is a bad
      idea, unfortunately (as much as I would like to have a complete console
      based setup).
-*** TODO Deploy Beans II [4/6]
+*** DONE Deploy Beans II [4/6]
+    CLOSED: [2015-08-09 Sun 21:54]
     Beans II will be written in Coffeescript, with no 3rd party dependencies
     Even though there is no code yet, deployment is the most important story,
     so I need to work it out.
