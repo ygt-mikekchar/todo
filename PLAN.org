@@ -1,0 +1,15 @@
+* Beans II
+
+The file is for Emacs Org mode: http://orgmode.org/
+
+** DONE Create Game description
+   CLOSED: [2015-08-09 Sun 15:12]
+** DONE Create initial plan
+   CLOSED: [2015-08-09 Sun 15:35]
+** DONE SPIKE: Investigate possibility of using ES6 features
+   CLOSED: [2015-08-09 Sun 15:35]
+   Coffeescript already gives me quite a bit of the stuff I want.
+   The only thing really missing is Promises and that is supported
+   by all current browsers.
+** TODO Create build system
+   Beans II will be written in Coffeescript, with no 3rd party dependencies
