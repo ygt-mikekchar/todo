@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mike Charlton",
-  "license": "AGPLv3"
+  "license": "AGPLv3",
+  "devDependencies": {
+    "webpack": "^1.11.0"
+  }
 }
