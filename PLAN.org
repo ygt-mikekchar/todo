@@ -24,7 +24,9 @@ The file is for Emacs Org mode: http://orgmode.org/
 **** DONE SPIKE: How do we compile assets?
      CLOSED: [2015-08-09 Sun 15:58]
      Looks like Webpack is the way to go.
+**** DONE Set up npm
+      CLOSED: [2015-08-09 Sun 17:08]
+**** TODO Create a link from the README that will run the app.
 **** TODO Create a webpack loader that does mostly nothing
      see https://webpack.github.io/docs/tutorials/getting-started/ 
-***** TODO Set up npm
 **** TODO Create a webpack loader that runs a stupid test with jasmine

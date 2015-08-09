@@ -5,32 +5,11 @@ Copyright (C) 2015 Mike Charlton
 Note: This is a re-implementation of : https://github.com/mikekchar/beans
       Please see that project for a description.
 
-## License
+## Try it
 
-The original Beans program was licensed under the GPLv3.  BeansII
-is licensed under the AGPLv3.  GPLv3 code can be used in AGPLv3
-code, but the opposite is not true.  Be careful about that.
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-### Why AGPL?
-
-Beans II does not actually run on a server, so there is no particular
-need for it to be licensed under AGPL.  This is the first of a series
-of games that I will write in Coffeescript and I wish to share code
-freely between them.  Other projects will need AGPL, so just to keep
-the headaches to a minimum for myself, I've decided to go this way.
+Currently Beans is in active development.  All of the features are
+currently unimplemented.  However, you can follow
+[the current progress](build/BeansII.html)
 
 ## Description
 
@@ -85,4 +64,31 @@ The game is over when:
 - There are no unreleased jars left
 - There is only 1 jar left and it has a point multiplier of 0
 
+
+## License
+
+The original Beans program was licensed under the GPLv3.  BeansII
+is licensed under the AGPLv3.  GPLv3 code can be used in AGPLv3
+code, but the opposite is not true.  Be careful about that.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+### Why AGPL?
+
+Beans II does not actually run on a server, so there is no particular
+need for it to be licensed under AGPL.  This is the first of a series
+of games that I will write in Coffeescript and I wish to share code
+freely between them.  Other projects will need AGPL, so just to keep
+the headaches to a minimum for myself, I've decided to go this way.
 
