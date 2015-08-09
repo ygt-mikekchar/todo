@@ -41,7 +41,8 @@ The file is for Emacs Org mode: http://orgmode.org/
      see https://webpack.github.io/docs/tutorials/getting-started/ 
 ** <2015-08-10 Mon> [0/1]
 *** TODO Create a webpack loader that runs a stupid test with jasmine
-**** TODO Install jasmine
+**** DONE Install jasmine
+     CLOSED: [2015-08-10 Mon 08:17]
      I think npm will probably work.
      However, it is not immediately obvious how.
      It seems that it will not work, which sucks.  Will have to include
@@ -55,4 +56,5 @@ The file is for Emacs Org mode: http://orgmode.org/
     1. Looked for headphones.
     2. https://egghead.io/lessons/react-unit-testing-a-react-component-using-jasmine-and-webpack
     3. Try to install Jasmine through npm
-    4. Compare standalon jasmine to npm jasmine
+    4. Compare standalone jasmine to npm jasmine
+    5. Install jasmine via submodule
