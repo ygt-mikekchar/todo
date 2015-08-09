@@ -2,7 +2,7 @@
 
 The file is for Emacs Org mode: http://orgmode.org/
 
-** <2015-08-09 Sun> [7/8]
+** <2015-08-09 Sun> [7/7]
 *** DONE Create Game description
     CLOSED: [2015-08-09 Sun 15:12]
 *** DONE Create initial plan
@@ -39,4 +39,12 @@ The file is for Emacs Org mode: http://orgmode.org/
 **** DONE Create a webpack loader that does mostly nothing
      CLOSED: [2015-08-09 Sun 22:16]
      see https://webpack.github.io/docs/tutorials/getting-started/ 
+** <2015-08-10 Mon> [0/1]
 *** TODO Create a webpack loader that runs a stupid test with jasmine
+**** TODO Create a separate test loader html file (see jasmine home page)
+**** TODO Create a webpack loader that builds a spec.js file
+**** TODO Run everything using webpack-dev-server
+    
+*** Pomodoro log
+    1. Looked for headphones.
+    2. https://egghead.io/lessons/react-unit-testing-a-react-component-using-jasmine-and-webpack
