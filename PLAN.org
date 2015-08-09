@@ -26,4 +26,5 @@ The file is for Emacs Org mode: http://orgmode.org/
      Looks like Webpack is the way to go.
 **** TODO Create a webpack loader that does mostly nothing
      see https://webpack.github.io/docs/tutorials/getting-started/ 
+***** TODO Set up npm
 **** TODO Create a webpack loader that runs a stupid test with jasmine
