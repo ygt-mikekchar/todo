@@ -27,6 +27,7 @@ The file is for Emacs Org mode: http://orgmode.org/
 **** DONE Set up npm
       CLOSED: [2015-08-09 Sun 17:08]
 **** TODO Create a link from the README that will run the app.
+     Looks like the only way to do this is with the gh-pages branch
 **** TODO Create a webpack loader that does mostly nothing
      see https://webpack.github.io/docs/tutorials/getting-started/ 
 **** TODO Create a webpack loader that runs a stupid test with jasmine

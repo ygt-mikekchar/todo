@@ -9,9 +9,7 @@ Note: This is a re-implementation of : https://github.com/mikekchar/beans
 
 Currently Beans is in active development.  All of the features are
 currently unimplemented.  However, you can follow
-[the current progress](build/BeansII.html)
-
-<script type="text/javascript" src="boo.js" charset="utf-8"></script>
+[the current progress](http://mikekchar.github.io/BeansII)
 
 ## Description
 
