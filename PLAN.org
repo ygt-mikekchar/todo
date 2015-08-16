@@ -58,10 +58,9 @@ The file is for Emacs Org mode: http://orgmode.org/
     4. Compare standalone jasmine to npm jasmine
     5. Install jasmine via submodule
     6. BIG Pomodoro.  Get the fscking jasmine runner set up. Seriously... WTF is up with documentation...
-** <2015-08-15 Sat> [0/1]
-*** TODO Setup up webpack    
-**** TODO Create a webpack loader that builds a spec.js file
-**** TODO Run everything using webpack-dev-server
+** <2015-08-15 Sat> [1/1]
+*** DONE Setup up webpack    
+**** DONE Create a webpack loader that builds a spec.js file
 
 *** Pomodoro Log
     - Planning. Try to compile all the jasmine files together <2015-08-15 Sat 11:13>
@@ -69,7 +68,14 @@ The file is for Emacs Org mode: http://orgmode.org/
     - Give up on making webpack compile Jasmine files <2015-08-15 Sat 11:28>
     - Make jasmine actually run a failing spec <2015-08-15 Sat 11:34>
     - Remove build files from git <2015-08-15 Sat 11:44>  
-** <2015-08-16 Sun> [/]
-*** TODO Create a Webpack config file
+** <2015-08-16 Sun> [2/3]
+*** DONE Create a Webpack config file
+    CLOSED: [2015-08-16 Sun 22:56]
+*** DONE Allow running of the tests from index.html
+    CLOSED: [2015-08-16 Sun 23:03]
+*** TODO Update the gh-pages branch
+    I'm really torn about whether or not the gh-pages branch
+    should be the only one with a build directory.
+
 *** Pomodoro Log
-    - 
+    - Get Webpack building things.  Not really a pomodoro.
