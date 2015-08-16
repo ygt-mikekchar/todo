@@ -58,7 +58,7 @@ The file is for Emacs Org mode: http://orgmode.org/
     4. Compare standalone jasmine to npm jasmine
     5. Install jasmine via submodule
     6. BIG Pomodoro.  Get the fscking jasmine runner set up. Seriously... WTF is up with documentation...
-** <2015-08-15 Sat> [/]
+** <2015-08-15 Sat> [0/1]
 *** TODO Setup up webpack    
 **** TODO Create a webpack loader that builds a spec.js file
 **** TODO Run everything using webpack-dev-server
@@ -68,4 +68,8 @@ The file is for Emacs Org mode: http://orgmode.org/
     - Failing <2015-08-15 Sat 11:21>
     - Give up on making webpack compile Jasmine files <2015-08-15 Sat 11:28>
     - Make jasmine actually run a failing spec <2015-08-15 Sat 11:34>
+    - Remove build files from git <2015-08-15 Sat 11:44>  
+** <2015-08-16 Sun> [/]
+*** TODO Create a Webpack config file
+*** Pomodoro Log
     - 
