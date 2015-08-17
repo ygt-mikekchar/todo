@@ -42,13 +42,56 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	describe("Nothing", function() {
-	  return it("should not fail", function() {
-	    return expect(true).toEqual(true);
+	__webpack_require__(1);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Document;
+
+	Document = __webpack_require__(2);
+
+	describe("Document", function() {
+	  return describe("@create_fake", function() {
+	    return it("creates an HTML element with no contents", function() {
+	      var subject;
+	      subject = Document.create_fake();
+	      return expect(subject.html()).toEqual("");
+	    });
 	  });
 	});
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	var Document;
+
+	module.exports = Document = (function() {
+	  function Document(root) {
+	    if (root == null) {
+	      this.root = document.documentElement;
+	    } else {
+	      this.root = root;
+	    }
+	  }
+
+	  Document.create_fake = function() {
+	    return new Document(document.createElement("html"));
+	  };
+
+	  Document.prototype.html = function() {
+	    return this.root.innerHTML;
+	  };
+
+	  return Document;
+
+	})();
 
 
 /***/ }

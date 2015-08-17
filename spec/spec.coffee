@@ -1,3 +1,1 @@
-describe "Nothing", ->
-  it "should not fail", ->
-    expect(true).toEqual(true)
+require "./components.coffee"
