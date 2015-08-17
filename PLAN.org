@@ -68,14 +68,41 @@ The file is for Emacs Org mode: http://orgmode.org/
     - Give up on making webpack compile Jasmine files <2015-08-15 Sat 11:28>
     - Make jasmine actually run a failing spec <2015-08-15 Sat 11:34>
     - Remove build files from git <2015-08-15 Sat 11:44>  
-** <2015-08-16 Sun> [2/3]
+** <2015-08-16 Sun> [3/3]
 *** DONE Create a Webpack config file
     CLOSED: [2015-08-16 Sun 22:56]
 *** DONE Allow running of the tests from index.html
     CLOSED: [2015-08-16 Sun 23:03]
-*** TODO Update the gh-pages branch
+*** DONE Update the gh-pages branch
+    CLOSED: [2015-08-16 Sun 23:06]
     I'm really torn about whether or not the gh-pages branch
     should be the only one with a build directory.
 
 *** Pomodoro Log
     - Get Webpack building things.  Not really a pomodoro.
+    - Publish ability to run tests to gh-pages <2015-08-16 Sun 23:07>
+    - Update backlog <2015-08-16 Sun 23:14>
+    - Bed time!
+
+** <2015-08-17 Mon> [/]
+*** TODO Build coffeescript
+*** TODO Show a hand
+**** TODO Make a canvas
+***** TODO Find a way to test that an element exists
+**** TODO Draw a hand (somehow)
+*** Pomodoro Log
+    - Planning. Start bulding coffeescript loader. <2015-08-17 Mon 10:03>
+    - Install webpack coffeescript loader. <2015-08-17 Mon 10:14> 
+    - Futzing with webpack --watch <2015-08-17 Mon 10:33>
+    - Give up on webpack --watch <2015-08-17 Mon 10:40>
+** Backlog
+*** TODO Write deploy script
+    It just:
+      - ensures you are on master
+      - checks out gh-pages branch
+      - merges master
+      - runs webpack
+      - commits
+      - pushes gh-pages
+      - checkouts out master
+*** TODO Sign builds

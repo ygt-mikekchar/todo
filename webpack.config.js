@@ -1,10 +1,17 @@
+path = require("path")
+
 module.exports = {
   entry: {
-    beans: __dirname + "/src/beans.js",
-    spec: __dirname + "/spec/spec.js",
+    beans: path.join(__dirname, "/src/beans.coffee"),
+    spec: path.join(__dirname, "/spec/spec.coffee"),
   },
   output: {
-    path: __dirname + "/build",
+    path: path.join(__dirname, "/build"),
     filename: "[name].bundle.js"
+  },
+  module: {
+    loaders: [
+      { test: /\.coffee$/, loader: "coffee" }
+    ]
   }
 };

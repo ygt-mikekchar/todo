@@ -45,8 +45,8 @@
 /***/ function(module, exports) {
 
 	describe("Nothing", function() {
-	  it("should fail", function() {
-	    expect(true).toEqual(false);
+	  return it("should not fail", function() {
+	    return expect(true).toEqual(true);
 	  });
 	});
 
