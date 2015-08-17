@@ -60,7 +60,7 @@
 	    return it("creates an HTML element with no contents", function() {
 	      var subject;
 	      subject = Document.create_fake();
-	      return expect(subject.html()).toEqual("");
+	      return expect(subject.dom.innerHTML).toEqual("");
 	    });
 	  });
 	});
@@ -70,23 +70,61 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	var Document;
+	var DOMElement, DOMFactory, Document;
 
-	module.exports = Document = (function() {
-	  function Document(root) {
-	    if (root == null) {
-	      this.root = document.documentElement;
-	    } else {
-	      this.root = root;
+	DOMElement = (function() {
+	  function DOMElement(factory1, name1, contents) {
+	    this.factory = factory1;
+	    this.name = name1;
+	    this.contents = contents;
+	  }
+
+	  DOMElement.prototype.render = function() {
+	    return this.factory.createElement(this.name);
+	  };
+
+	  return DOMElement;
+
+	})();
+
+	DOMFactory = (function() {
+	  function DOMFactory(document1) {
+	    this.document = document1;
+	    if (this.document == null) {
+	      this.document = document;
 	    }
 	  }
 
-	  Document.create_fake = function() {
-	    return new Document(document.createElement("html"));
+	  DOMFactory.prototype.createElement = function(name) {
+	    return this.document.createElement(name);
 	  };
 
-	  Document.prototype.html = function() {
-	    return this.root.innerHTML;
+	  DOMFactory.prototype.html = function(fn) {
+	    return new DOMElement(this, this.name, null);
+	  };
+
+	  return DOMFactory;
+
+	})();
+
+	module.exports = Document = (function() {
+	  function Document(document1, dom1) {
+	    this.document = document1;
+	    this.dom = dom1;
+	    if (this.document == null) {
+	      this.document = document;
+	    }
+	    this.factory = new DOMFactory(this.document);
+	    if (this.dom == null) {
+	      this.dom = this.document.documentElement;
+	    }
+	  }
+
+	  Document.create_fake = function(document) {
+	    var dom, factory;
+	    factory = new DOMFactory(document);
+	    dom = factory.html(function() {}).render();
+	    return new Document(document, dom);
 	  };
 
 	  return Document;

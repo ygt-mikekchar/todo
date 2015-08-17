@@ -1,12 +1,30 @@
+class DOMElement
+  constructor: (@factory, @name, @contents) ->
+    # TODO Create a tree of @contents
+
+  render: ->
+    # TODO render the @contents tree and insert into element
+    @factory.createElement(@name)
+
+class DOMFactory
+  constructor: (@document) ->
+    @document = document if !@document?
+
+  createElement: (name) ->
+    @document.createElement(name)
+
+  html: (fn) ->
+    # TODO: run fn() to determine contents
+    new DOMElement(this, @name, null)
+
 module.exports = class Document
-  constructor: (root) ->
-    if !root?
-      @root = document.documentElement
-    else
-      @root = root
+  constructor: (@document, @dom) ->
+    @document = document if !@document?
+    @factory = new DOMFactory(@document)
+    @dom = @document.documentElement if !@dom?
 
-  @create_fake: ->
-    new Document(document.createElement("html"))
-
-  html: ->
-    @root.innerHTML
+  # Create a document with and empty html element
+  @create_fake: (document) ->
+    factory = new DOMFactory(document)
+    dom = factory.html(->).render()
+    new Document(document, dom)

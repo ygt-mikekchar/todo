@@ -94,6 +94,7 @@ The file is for Emacs Org mode: http://orgmode.org/
        CLOSED: [2015-08-17 Mon 11:35]
 ****** TODO Create a test structure in fake Document
 **** TODO Draw a hand (somehow)
+
 *** Pomodoro Log
     - Planning. Start bulding coffeescript loader. <2015-08-17 Mon 10:03>
     - Install webpack coffeescript loader. <2015-08-17 Mon 10:14> 
@@ -104,7 +105,11 @@ The file is for Emacs Org mode: http://orgmode.org/
     - Create a Document class <2015-08-17 Mon 10:59>
     - Grr... Got distracted by YGT stuff <2015-08-17 Mon 11:20>
     - Add a way to create a fake document for tests <2015-08-17 Mon 11:34>
+    - Deploy <2015-08-17 Mon 11:38>
+    - After a break, refactor <2015-08-17 Mon 12:47>
+    - All out of time for today.
 ** Backlog
+*** TODO sourcemaps
 *** TODO Write deploy script
     It just:
       - ensures you are on master
