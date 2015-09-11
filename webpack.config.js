@@ -2,7 +2,7 @@ path = require("path")
 
 module.exports = {
   entry: {
-    beans: path.join(__dirname, "/src/beans.coffee"),
+    todo: path.join(__dirname, "/src/todo.coffee"),
     spec: path.join(__dirname, "/spec/spec.coffee"),
   },
   output: {

@@ -1,75 +1,20 @@
-# Beans II - A web version of Beans, a technical debt analogy game
+# TODO A quick demonstration of how to move state in a React tree
 
-Copyright (C) 2015 Mike Charlton
+Copyright (C) 2015 Your Golf Travel
 
-Note: This is a re-implementation of : https://github.com/mikekchar/beans
-      Please see that project for a description.
+## Try it / Run the tests
 
-## Try it
-
-Currently Beans is in active development.  All of the features are
-currently unimplemented.  However, you can follow
-[the current progress](http://mikekchar.github.io/BeansII)
+[TODO](http://ygt-mikekchar.github.io/todo)
 
 ## Description
 
-Beans is a game that tries to model technical debt.  The idea is that
-choices you make early on in the game to get quick wins (or to
-avoid thinking strategically) increase costs later in the game.
-However, early wins can be lucrative, so creating a balance is crucial.
-
-The original Beans game was not entirely successful in its aim, as
-the game is quite difficult to play.  Beans II will probably suffer
-the same fate as I am using it as a technical challenge only.
-
-### Rules
-
-There are 3 jars.  Two of them are empty.  The other contains
-9 jelly beans.  3 of the jelly beans are red, 3 are black, and
-3 are green.
-
-The game starts with 15 potential points.  Every turn the
-number of potential points is reduced by 1.
-
-The player starts the game without holding a jelly bean.  They
-can remove a jelly bean from any jar that contains one.  They
-will then be holding that jelly bean.  This does not take a turn.
-
-The jars randomly accept beans.  The first jar is 100% likely
-to accept a bean.  The second jar is 50% likely to accept
-a bean. The third is 25% likely to accept a bean.
-
-The user can deposit a bean in any accepting jar, or pass their
-turn (and continue holding on to the bean).  This takes 1 turn.
-
-The user can "force" a bean into a jar.  This will simply keep
-trying until the jar accepts the bean, using as many turns as
-necessary.
-
-Every jar has a "point multiplier".  It is calculated by counting
-the most numerous colour bean and subtracting all of the other
-beans.  So if a jar has 3 red beans, 1 black bean and one green bean,
-then the "point multiplier" for the jar is 1 (3 - 1 - 1).  The point
-multiplier can not be less than 0.
-
-Any time a jar has a multiplier greater than 1, it can be "released".
-Doing so gives the user a number of points equal to:
-```
-  potential points * point multiplier
-```
-It then removes the jar and all of the contained beans from the game.
-
-The game is over when:
-- The potential points < 1.
-- There are no unreleased jars left
-- There is only 1 jar left and it has a point multiplier of 0
-
+This is just a description of how to move state in a React
+tree up to the highest level. 
 
 ## License
 
-The original Beans program was licensed under the GPLv3.  BeansII
-is licensed under the AGPLv3.  GPLv3 code can be used in AGPLv3
-code, but the opposite is not true.  Be careful about that.
+The shell of this project was cloned from [Beans II](http://mikekchar.github.io/BeansII)
+which is under AGPLv3.  So this project is also AGPLv3
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -84,35 +29,53 @@ code, but the opposite is not true.  Be careful about that.
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-### Why AGPL?
-
-Beans II does not actually run on a server, so there is no particular
-need for it to be licensed under AGPL.  This is the first of a series
-of games that I will write in Coffeescript and I wish to share code
-freely between them.  Other projects will need AGPL, so just to keep
-the headaches to a minimum for myself, I've decided to go this way.
-
 ## Development
 
-### Tests
+Note:  If you just want to see the app run, or run the tests without
+modifying anything and you are connected to the internet, you can
+[just click here](http://ygt-mikekchar.github.io/todo)
 
-To run the tests you must first install Jasmine.
+### Runtime dependencies
+
+The runtime/test dependencies are in git submodules, so you
+have to fetch them.
 
 ```
 git submodules update --init --recursive
 ```
 
-### How to Build
+### Development dependencies
 
-You must build the Javascript.
+TODO uses Node and Webpack to build the bundles used for
+running the application or tests.  First install `node`
+and `npm` according to the platform you are on.  Then
+
+```
+npm install
+```
+
+### How to build
 
 ```
 npm run build
 ```
 
-Do this before you merge into master.
+The built bundles are checked into github.  Please make sure
+that you build before you push to github.  This is especially
+important for pushing to gh-pages (see below)
+
+### How to run the tests
+
+After building the project, direct your browser to `spec/index.html`
+in the  project directory.  It will run the Jasmine test suite.
+
+### How to run the app
+
+After building the project, direct your browser to `spec/index.html`
+in the  project directory.  It will run the Jasmine test suite.
 
 ### How to Deploy
-Beans II is hosted on Github.  To deploy simply merge master into the
-gh-pages branch.  It will be available on http://mikekchar.github.io/BeansII
+TODO is hosted on Github.  To deploy simply merge master into the
+gh-pages branch.  Then push the gh-pages branch to Github.
+It will be available on http://mikekchar.github.io/todo
 within about 10 minutes.
