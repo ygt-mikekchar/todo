@@ -35,16 +35,16 @@ Note:  If you just want to see the app run, or run the tests without
 modifying anything and you are connected to the internet, you can
 [just click here](http://ygt-mikekchar.github.io/todo)
 
-### Runtime dependencies
+### Test dependencies
 
-The runtime/test dependencies are in git submodules, so you
-have to fetch them.
+The Jasmine is in a git submodule, so you
+have to fetch it.
 
 ```
 git submodules update --init --recursive
 ```
 
-### Development dependencies
+### Development/Runtime dependencies
 
 TODO uses Node and Webpack to build the bundles used for
 running the application or tests.  First install `node`
@@ -53,6 +53,11 @@ and `npm` according to the platform you are on.  Then
 ```
 npm install
 ```
+
+Note: It would be nice to use a git submodule for React as well,
+but because it is unbuilt, I would have to add Gulp and
+Grunt to the dependency list, so I decided to us the npm
+package manager.
 
 ### How to build
 
@@ -77,5 +82,5 @@ in the  project directory.  It will run the Jasmine test suite.
 ### How to Deploy
 TODO is hosted on Github.  To deploy simply merge master into the
 gh-pages branch.  Then push the gh-pages branch to Github.
-It will be available on http://mikekchar.github.io/todo
+It will be available on [github](http://mikekchar.github.io/todo)
 within about 10 minutes.

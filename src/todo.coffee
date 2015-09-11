@@ -1,1 +1,1 @@
-require "./components.coffee"
+require "./components.cjsx"

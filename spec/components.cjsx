@@ -1,4 +1,4 @@
-Document = require "../src/components.coffee"
+Document = require "../src/components.cjsx"
 
 describe "Success", ->
   # Nothing succeeds like success!!!
