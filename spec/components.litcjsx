@@ -1,0 +1,9 @@
+# Tests
+
+    Document = require "../src/components.litcjsx"
+
+Nothing succeeds like success!!!
+
+    describe "Success", ->
+      it "succeeds", ->
+        expect(true).toEqual(true)
