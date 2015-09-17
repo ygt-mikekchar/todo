@@ -13,7 +13,7 @@ module.exports = {
     loaders: [
       { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
       { test: /\.coffee$/, loader: "coffee" },
-      { test: /\.litcjsx$/, loaders: ['coffee?literate', 'cjsx?literate']},
+      { test: /\.cjsx.md$/, loaders: ['coffee?literate', 'cjsx?literate']},
       { test: /\.litcoffee$/, loader: "coffee?literate" }
     ]
   }

@@ -1,6 +1,6 @@
-# Tests
+## Some Useless tests
 
-    Document = require "../src/components.litcjsx"
+    Document = require "../src/components.cjsx.md"
 
 Nothing succeeds like success!!!
 
