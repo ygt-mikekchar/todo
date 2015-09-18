@@ -11,6 +11,8 @@ Copyright (C) 2015 Your Golf Travel
 This is just a description of how to move state in a React
 tree up to the highest level. 
 
+Feel free to [explore the anotated source code](src/todo.litcoffee)
+
 ## License
 
 The shell of this project was cloned from [Beans II](http://mikekchar.github.io/BeansII)
