@@ -1,3 +1,6 @@
 [submodule "third_party/jasmine"]
 	path = third_party/jasmine
 	url = https://github.com/jasmine/jasmine.git
+[submodule "third_party/jasmine-given"]
+	path = third_party/jasmine-given
+	url = https://github.com/searls/jasmine-given.git
