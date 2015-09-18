@@ -1,5 +1,8 @@
 # A TODO Example in Literate Coffeescript
 
+* [Project Page](https://github.com/ygt-mikekchar/todo)
+* [Demo/Tests](http://ygt-mikekchar.github.io/todo)
+
 ## Introduction
 
 We started to use React a little over a year ago.  When we
