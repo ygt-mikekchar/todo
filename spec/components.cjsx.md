@@ -9,10 +9,13 @@ Probably I should rename the componenets file
 
     TodoApp = require("../src/components.cjsx.md")
 
+Note: We are using [jasmine-given](https://github.com/searls/jasmine-given)
+in these thests.  It is being loaded by (spec/index.html)[spec/index.html].
+
 ### TodoApp exists
 
     describe "TodoApp", ->
-      it "exists", ->
-        expect(TodoApp).toEqual(jasmine.any(Function))
+      Given -> @subject = TodoApp
+      Then -> expect(@subject).toEqual(jasmine.any(Function))
 
 **Back**

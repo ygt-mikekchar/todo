@@ -60,8 +60,11 @@
 	TodoApp = __webpack_require__(175);
 
 	describe("TodoApp", function() {
-	  return it("exists", function() {
-	    return expect(TodoApp).toEqual(jasmine.any(Function));
+	  Given(function() {
+	    return this.subject = TodoApp;
+	  });
+	  return Then(function() {
+	    return expect(this.subject).toEqual(jasmine.any(Function));
 	  });
 	});
 
