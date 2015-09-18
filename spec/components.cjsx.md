@@ -1,9 +1,18 @@
 ## Some Useless tests
 
-    Document = require "../src/components.cjsx.md"
+We require the addons so that we can get the test utils
 
-Nothing succeeds like success!!!
+    React = require("react/addons")
+    Utils = React.TestUtils
 
-    describe "Success", ->
-      it "succeeds", ->
-        expect(true).toEqual(true)
+Probably I should rename the componenets file
+
+    TodoApp = require("../src/components.cjsx.md")
+
+### TodoApp exists
+
+    describe "TodoApp", ->
+      it "exists", ->
+        expect(TodoApp).toEqual(jasmine.any(Function))
+
+[Back](javascript:history.back())
