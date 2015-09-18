@@ -15,4 +15,4 @@ Probably I should rename the componenets file
       it "exists", ->
         expect(TodoApp).toEqual(jasmine.any(Function))
 
-<a href="javascript:history.back()">Back</a>
+**Back**
