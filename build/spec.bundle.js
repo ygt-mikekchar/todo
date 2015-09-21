@@ -51,40 +51,13 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Compare, React, ReactMatchers, TodoApp, Utils;
+	var React, TodoApp, Utils;
 
 	React = __webpack_require__(2);
 
 	Utils = React.addons.TestUtils;
 
 	TodoApp = __webpack_require__(175);
-
-	Compare = {
-	  containsTag: function(component, tag, util, testers) {
-	    var nodes, result;
-	    result = {};
-	    nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
-	    result.pass = util.equals(nodes.length, 1, testers);
-	    if (result.pass) {
-	      result.message = "Expected one " + tag + ", but there were " + nodes.length;
-	    } else {
-	      result.message = "Expected not to have " + tag + ", but there was";
-	    }
-	    return result;
-	  }
-	};
-
-	ReactMatchers = {
-	  toContainReact: function(util, testers) {
-	    return {
-	      compare: function(component, expected) {
-	        if (expected.tag != null) {
-	          return Compare.containsTag(component, expected.tag, util, testers);
-	        }
-	      }
-	    };
-	  }
-	};
 
 	describe("TodoApp", function() {
 	  beforeEach(function() {
