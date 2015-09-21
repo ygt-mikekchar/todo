@@ -20445,7 +20445,9 @@
 
 	module.exports = React.createClass({
 	  render: function() {
-	    return React.createElement("div", null);
+	    return React.createElement("div", {
+	      "className": 'js-todo-app'
+	    });
 	  }
 	});
 

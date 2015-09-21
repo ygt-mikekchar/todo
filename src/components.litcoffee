@@ -5,5 +5,5 @@
     module.exports = React.createClass
 
       render: ->
-        <div>
+        <div className='js-todo-app'>
         </div>

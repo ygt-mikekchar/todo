@@ -66,12 +66,11 @@
 	    return jasmine.addMatchers(ReactMatchers);
 	  });
 	  When(function() {
-	    console.log(React);
 	    return this.subject = Utils.renderIntoDocument(React.createElement(TodoApp, null));
 	  });
 	  return Then(function() {
 	    return expect(this.subject).toContainReact(function(subjectContains) {
-	      return subjectContains.tags("div").result();
+	      return subjectContains.tags("div")["with"].cssClass("js-todo-app").result();
 	    });
 	  });
 	});
@@ -22577,7 +22576,9 @@
 
 	module.exports = React.createClass({
 	  render: function() {
-	    return React.createElement("div", null);
+	    return React.createElement("div", {
+	      "className": 'js-todo-app'
+	    });
 	  }
 	});
 
@@ -22593,7 +22594,7 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ComponentFilter, JasmineMonad, React, ReactMatchers, Utils,
+	var ComponentFilter, DOMFilter, JasmineMonad, React, ReactMatchers, Utils,
 	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	  hasProp = {}.hasOwnProperty;
 
@@ -22610,6 +22611,8 @@
 	    if (this.messages == null) {
 	      this.messages = [];
 	    }
+	    this["with"] = this;
+	    this.and = this;
 	  }
 
 	  JasmineMonad.prototype["return"] = function(value, messages) {
@@ -22646,12 +22649,62 @@
 
 	})();
 
+	DOMFilter = (function(superClass) {
+	  extend(DOMFilter, superClass);
+
+	  function DOMFilter() {
+	    return DOMFilter.__super__.constructor.apply(this, arguments);
+	  }
+
+	  DOMFilter.prototype.cssClass = function(cssClass) {
+	    return this.bind((function(_this) {
+	      return function(nodes) {
+	        var match, matched, messages, node;
+	        match = function(a, b) {
+	          if (b == null) {
+	            return false;
+	          }
+	          return b.indexOf(a) !== -1;
+	        };
+	        if (nodes != null ? nodes.length : void 0) {
+	          matched = (function() {
+	            var i, len, results;
+	            results = [];
+	            for (i = 0, len = nodes.length; i < len; i++) {
+	              node = nodes[i];
+	              if (match(cssClass, node.props.className)) {
+	                results.push(node);
+	              }
+	            }
+	            return results;
+	          })();
+	        } else {
+	          matched = [];
+	        }
+	        messages = ["Expected to find DOM node with class " + cssClass + ", but it was not there.", "Expected not to find DOM node with class " + cssClass + ", but there were " + matched.length + "."];
+	        if (matched.length > 0) {
+	          return _this["return"](matched, messages);
+	        } else {
+	          return _this["return"](null, messages);
+	        }
+	      };
+	    })(this));
+	  };
+
+	  return DOMFilter;
+
+	})(JasmineMonad);
+
 	ComponentFilter = (function(superClass) {
 	  extend(ComponentFilter, superClass);
 
 	  function ComponentFilter() {
 	    return ComponentFilter.__super__.constructor.apply(this, arguments);
 	  }
+
+	  ComponentFilter.prototype.returnDOMComponents = function(nodes, messages) {
+	    return new DOMFilter(nodes, this.util, this.testers, messages);
+	  };
 
 	  ComponentFilter.prototype.tags = function(tag) {
 	    return this.bind((function(_this) {
@@ -22660,7 +22713,7 @@
 	        nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
 	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there were " + nodes.length + "."];
 	        if (nodes.length > 0) {
-	          return _this["return"](component, messages);
+	          return _this.returnDOMComponents(nodes, messages);
 	        } else {
 	          return _this["return"](null, messages);
 	        }

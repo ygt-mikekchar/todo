@@ -26,12 +26,12 @@ to jasmine to make our lives easier.
 ### TodoApp renders a div
 
       When ->
-        console.log(React)
         @subject = Utils.renderIntoDocument(
           <TodoApp />
         )
       Then -> expect(@subject).toContainReact (subjectContains) ->
         subjectContains.tags("div")
+                       .with.cssClass("js-todo-app")
                        .result()
 
 **Back**
