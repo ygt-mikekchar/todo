@@ -12,7 +12,7 @@ Probably I should rename the componenets file
 Note: We are using [jasmine-given](https://github.com/searls/jasmine-given)
 in these thests.  It is being loaded by [spec/index.html](spec/index.html).
 
-We are also going to add some [React Matchers](spec/react_matchers.litcoffee)
+We are also going to add some [React Matchers](react_matchers.litcoffee)
 to jasmine to make our lives easier.
 
     ReactMatchers = require("./react_matchers.litcoffee")
