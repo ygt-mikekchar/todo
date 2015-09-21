@@ -22593,15 +22593,17 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ComponentFilter, React, ReactMatchers, Utils;
+	var ComponentFilter, JasmineMonad, React, ReactMatchers, Utils,
+	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
 
 	React = __webpack_require__(2);
 
 	Utils = React.addons.TestUtils;
 
-	ComponentFilter = (function() {
-	  function ComponentFilter(component1, util1, testers1, messages1) {
-	    this.component = component1;
+	JasmineMonad = (function() {
+	  function JasmineMonad(value1, util1, testers1, messages1) {
+	    this.value = value1;
 	    this.util = util1;
 	    this.testers = testers1;
 	    this.messages = messages1;
@@ -22610,22 +22612,26 @@
 	    }
 	  }
 
-	  ComponentFilter.prototype["return"] = function(component, messages) {
-	    return new ComponentFilter(component, this.util, this.testers, messages);
+	  JasmineMonad.prototype["return"] = function(value, messages) {
+	    return new this.constructor(value, this.util, this.testers, messages);
 	  };
 
-	  ComponentFilter.prototype.bind = function(func) {
-	    if (this.component != null) {
-	      return func(this.component);
+	  JasmineMonad.prototype.bind = function(func) {
+	    if (this.passed()) {
+	      return func(this.value);
 	    } else {
 	      return this;
 	    }
 	  };
 
-	  ComponentFilter.prototype.result = function() {
+	  JasmineMonad.prototype.passed = function() {
+	    return this.value != null;
+	  };
+
+	  JasmineMonad.prototype.result = function() {
 	    var result;
 	    result = {};
-	    result.pass = this.util.equals(this.component != null, true, this.testers);
+	    result.pass = this.util.equals(this.passed(), true, this.testers);
 	    if (this.messages != null) {
 	      if (result.pass) {
 	        result.message = this.messages[1];
@@ -22635,6 +22641,17 @@
 	    }
 	    return result;
 	  };
+
+	  return JasmineMonad;
+
+	})();
+
+	ComponentFilter = (function(superClass) {
+	  extend(ComponentFilter, superClass);
+
+	  function ComponentFilter() {
+	    return ComponentFilter.__super__.constructor.apply(this, arguments);
+	  }
 
 	  ComponentFilter.prototype.tags = function(tag) {
 	    return this.bind((function(_this) {
@@ -22653,7 +22670,7 @@
 
 	  return ComponentFilter;
 
-	})();
+	})(JasmineMonad);
 
 	ReactMatchers = {
 	  toContainReact: function(util, testers) {
