@@ -70,7 +70,7 @@
 	  });
 	  return Then(function() {
 	    return expect(this.subject).toContainReact(function(subjectContains) {
-	      return subjectContains.tags("div")["with"].cssClass("js-todo-app").result();
+	      return subjectContains.tags("div")["with"].cssClass("js-todo-app").exactly(1).time.result();
 	    });
 	  });
 	});
@@ -22602,6 +22602,17 @@
 
 	Utils = React.addons.TestUtils;
 
+	String.prototype.pluralize = function(num, plural) {
+	  if (num === 1) {
+	    return this;
+	  }
+	  if (plural != null) {
+	    return plural;
+	  } else {
+	    return this + "s";
+	  }
+	};
+
 	JasmineMonad = (function() {
 	  function JasmineMonad(value1, util1, testers1, messages1) {
 	    this.value = value1;
@@ -22643,6 +22654,14 @@
 	    return result;
 	  };
 
+	  JasmineMonad.prototype.was = function(num) {
+	    return 'was'.pluralize(num, 'were') + (" " + num);
+	  };
+
+	  JasmineMonad.prototype.count = function(num, singular, plural) {
+	    return num + " " + (singular.pluralize(num));
+	  };
+
 	  return JasmineMonad;
 
 	})();
@@ -22658,6 +22677,8 @@
 	    ComponentFilter.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
 	    this["with"] = this;
 	    this.and = this;
+	    this.time = this;
+	    this.times = this;
 	  }
 
 	  ComponentFilter.prototype.cssClass = function(cssClass) {
@@ -22685,9 +22706,23 @@
 	        } else {
 	          matched = [];
 	        }
-	        messages = ["Expected to find DOM node with class " + cssClass + ", but it was not there.", "Expected not to find DOM node with class " + cssClass + ", but there were " + matched.length + "."];
+	        messages = ["Expected to find DOM node with class " + cssClass + ", but it was not there.", "Expected not to find DOM node with class " + cssClass + ", but there " + (_this.was(matched.length)) + "."];
 	        if (matched.length > 0) {
 	          return _this["return"](matched, messages);
+	        } else {
+	          return _this["return"](null, messages);
+	        }
+	      };
+	    })(this));
+	  };
+
+	  ComponentFilter.prototype.exactly = function(num) {
+	    return this.bind((function(_this) {
+	      return function(nodes) {
+	        var messages;
+	        messages = ["Expected to find exactly " + (_this.count(num, 'node')) + ", but there " + (_this.was(nodes.length)), "Expected not find " + (_this.count(num, 'node')) + ", but there " + (_this.was(nodes.length)) + "."];
+	        if (nodes.length === num) {
+	          return _this["return"](nodes, messages);
 	        } else {
 	          return _this["return"](null, messages);
 	        }
@@ -22715,7 +22750,7 @@
 	      return function(component) {
 	        var messages, nodes;
 	        nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
-	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there were " + nodes.length + "."];
+	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there " + (_this.was(nodes.length)) + "."];
 	        if (nodes.length > 0) {
 	          return _this.returnMany(nodes, messages);
 	        } else {

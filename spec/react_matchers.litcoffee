@@ -45,7 +45,16 @@ wont bother trying to figure out the cssClass, etc.  It will ignore
 everything until it gets to the `result`.  Its a useful technique when
 you dont want to constantly check return values for errors.
 
-**Note:** text() and exactly() are not implemented yet.
+**Note:** text() is not implemented yet.
+
+### Useful pluralize function
+
+The tests need to output values that are pluralized, so this helper
+method is useful.
+
+    String.prototype.pluralize = (num, plural) ->
+      return this if num == 1
+      if plural? then plural else "#{this}s"
 
 ### A monad for Jasmine tests
 
@@ -131,6 +140,19 @@ expects.
             result.message = @messages[0]
         return result
 
+In constructing the messages it is often the case that you want to
+use the word "was/were" depending on the number of items.  This
+is a small helper utility.
+
+      was: (num) ->
+        'was'.pluralize(num, 'were') + " #{num}"
+
+Similarly we often want to count the number of objects using the
+correct pluralization.
+
+      count: (num, singular, plural) ->
+        "#{num} #{singular.pluralize(num)}"
+
 ### A monad for filtering collections of React components
 
 This class filters collections React components, often for
@@ -142,12 +164,14 @@ class, or ID.
 Because this monad deals with filtering lists of components
 it is nice to have a couple of dummy properties that
 allow us to use a more fluent English expression.
-`@with` and `@and` can be used for that purpose.
+`@with`, `@and` and `time` can be used for that purpose.
 
       constructor: (@value, @util, @testers, @messages) ->
         super(@value, @util, @testers, @messages)
         @with = this
         @and = this
+        @time = this
+        @times = this
 
 #### Filtering nodes by CSS class
 
@@ -184,11 +208,25 @@ Otherwise you will have silly looking code that looks like:
 
           messages = [
             "Expected to find DOM node with class #{cssClass}, but it was not there."
-            "Expected not to find DOM node with class #{cssClass}, but there were #{matched.length}."
+            "Expected not to find DOM node with class #{cssClass}, but there #{@was(matched.length)}."
           ]
 
           if matched.length > 0
             @return(matched, messages)
+          else
+            @return(null, messages)
+
+#### Enforcing the number of nodes
+
+      exactly: (num) ->
+        @bind (nodes) =>
+          messages = [
+            "Expected to find exactly #{@count(num, 'node')}, but there #{@was(nodes.length)}"
+            "Expected not find #{@count(num, 'node')}, but there #{@was(nodes.length)}."
+          ]
+
+          if nodes.length == num
+            @return(nodes, messages)
           else
             @return(null, messages)
 
@@ -222,7 +260,7 @@ passes if there is at least one.
           nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag)
           messages = [
             "Expected to find DOM tag #{tag}, but it was not there."
-            "Expected not to find DOM tag #{tag}, but there were #{nodes.length}."
+            "Expected not to find DOM tag #{tag}, but there #{@was(nodes.length)}."
           ]
           if nodes.length > 0
             @returnMany(nodes, messages)
