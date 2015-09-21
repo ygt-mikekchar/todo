@@ -58,11 +58,49 @@ a *new* monad constructed from the data transformed in the function.
 
     class JasmineMonad
 
+Our monad wraps a few things.  The important ones are the `value`
+and the `messages`.  The `value` depends on the type of monad we
+are constructing.  In the general case it will be a React component.
+Basically, the monad is simply a wrapper for the component that
+will allow us to chain filters and matchers.  Later there will also
+be a similar monad that contains DOM nodes (TBD).
+
+The other main thing the monad wraps are the `messages` for the
+last run matcher.  Jasmine has an odd way of outputting error
+messages.  When you write a matcher, you need to supply the
+error message both for whent the matcher does not pass *and*
+for when the matcher does not  pass when `.not` was supplied.
+We store these two messages from the last run matcher in
+@messages.
+
+You can see the there is a method called `return` that simply
+calls the constructor.  This probably looks a bit odd, but
+`return` is what Haskel uses for creating a new Monad.  When
+you see the implementation of a matcher (see below), you will
+see why it is called `return`.  We won't cause confusion with
+the reserved word because we will always invoke it as
+`@return()` or `monad.return()`.
+
       constructor: (@value, @util, @testers, @messages) ->
         @messages = [] if !@messages?
 
       return: (value, messages) ->
         new @constructor(value, @util, @testers, messages)
+
+To be a monad, we need to be able to run arbitrary functions
+and have the wrapped value in the monad passed to it.  Historically
+`bind` is the name for that function.  We are implementing a
+"Maybe" monad.  This means that when `bind()` is called, you only
+run the passed function if some condition holds.  In our case
+we want to run the function if all the matchers up to this point
+have passed.
+
+Note that in the case where we don't want to run the function, we
+still have to return `this` otherwise we won't be able to chain
+any more functions.  This is the power of the Maybe monad; to
+chain together a series of functions without having to worry
+about error conditions.  It will simply skip over the ones 
+after the error occurs.
 
       bind: (func) ->
         if @passed()
@@ -70,8 +108,18 @@ a *new* monad constructed from the data transformed in the function.
         else
           this
 
+We don't have any definitive way of determining if the previous
+matchers have passed, so we will rely on the matcher functions
+to return null when the matcher fails.
+
       passed: () ->
         @value?
+
+Once we have run our chain of matchers and filters, we need some
+way of returning a result to Jasmine.  This should always be
+the last method called in the chain.  Notice that it doesn't
+return a new monad, but rather the result object that Jasmine
+expects.
 
       result: ->
         result = {}
@@ -83,13 +131,35 @@ a *new* monad constructed from the data transformed in the function.
             result.message = @messages[0]
         return result
 
+### A monad for filtering React components
+
     class ComponentFilter extends JasmineMonad
 
-### Testing for DOM tags
+#### Testing for DOM tags
 
 One of the most common kinds of tests is to determine whether or not
-a component contains a DOM "tag" (eg "h1", "div", etc).  It returns
-true if there is at least one.
+a component contains a DOM "tag" (eg "h1", "div", etc). This matcher
+passes if there is at least one.
+
+As this is the first monadic function we have seen, I will describe it
+in a bit more detail.  Notice that the first line is a call to `@bind`.
+You pass it a callback which accepts a component.  `@bind` will run
+the function and pass `@value` in as the `component`.  You might be
+wondering, "why don't we just use @value directly -- it is available
+to us".  The reason we don't is because `@bind` is implementing our
+Maybe functionality.  If we neglect to call it, we will lose that
+functionality.  Although it is tempting to go around the structure
+of the monad and treat it as any other object, it is better to follow
+the interfact.
+
+Secondly, you will notice that we call `@return` at the end.  This
+builds a new Monad, wrapping the component and messages.  Note that
+we return `null` in the case that our matcher fails.  This will stop
+all subsequently chained matchers from running.
+
+Be careful to only have one exit point in your monadic functions.
+Otherwise you will have silly looking code that looks like:
+`return @return(component, messages)`.
 
       tags: (tag) ->
         @bind (component) =>
@@ -104,6 +174,10 @@ true if there is at least one.
             @return(null, messages)
 
 **Back**
+### Main matcher interface
+
+We actually only require one main method in our matchers interface because
+all of our matchers are actually implemented as methods on our monads.
 
     ReactMatchers =
 
