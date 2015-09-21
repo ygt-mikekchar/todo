@@ -10,13 +10,18 @@ Probably I should rename the componenets file
     TodoApp = require("../src/components.cjsx.md")
 
 Note: We are using [jasmine-given](https://github.com/searls/jasmine-given)
-in these thests.  It is being loaded by (spec/index.html)[spec/index.html].
+in these thests.  It is being loaded by [spec/index.html](spec/index.html).
 
-At first we need to add our React Matchers to jasmine.
+We are also going to add some [React Matchers](spec/react_matchers.litcoffee)
+to jasmine to make our lives easier.
+
+    ReactMatchers = require("./react_matchers.litcoffee")
 
     describe "TodoApp", ->
       beforeEach ->
         jasmine.addMatchers(ReactMatchers)
+
+**Back**
 
 ### TodoApp renders a div
 

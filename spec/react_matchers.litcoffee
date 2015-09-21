@@ -1,5 +1,10 @@
 # React Matchers
 
+We require the addons so that we can get the test utils
+
+    React = require("react/addons")
+    Utils = React.addons.TestUtils
+
 Tests using the React test utilities are both difficult to read and inconvenient
 to type.  As much as possible, I think it's best to write Jasmine matchers
 to make the tests easier to write.
@@ -56,9 +61,6 @@ with the class 'my-css-class'.  This DOM should contain the text, 'contents'.
 
     ReactMatchers =
 
-This matcher simply tests to see whether there is a contained DOM element
-in a component.  It uses the `containsTag` in the Compare object.
-
       toContainReact: (util, testers) ->
         compare: (component, expected) ->
           if expected.tag?
@@ -66,4 +68,6 @@ in a component.  It uses the `containsTag` in the Compare object.
 
 **Back**
 
+Export our matchers from this file.
 
+    module.exports = ReactMatchers
