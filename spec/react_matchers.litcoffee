@@ -30,7 +30,11 @@ thing we want to do.
       .result()
 ```
 
-This means that I am expecting my component to contain a DOM `div`
+In our example, `toContainReact` accepts a callback, which it will call,
+funishing a monad called `componentContains`.  We can then chain a series
+of tests.
+
+This chain means that I am expecting my component to contain a DOM `div`
 with the class `my-css-class`.  This `div` should contain the text, `contents`.
 There should be exactly 2 such `divs` in my tree.  The `result()` at the
 end simply means, "Im done with my testing, please calculate the results".
@@ -41,11 +45,7 @@ wont bother trying to figure out the cssClass, etc.  It will ignore
 everything until it gets to the `result`.  Its a useful technique when
 you dont want to constantly check return values for errors.
 
-**Note:** Only "tag" is implemented so far.
-
-In our example, `toContainReact` accepts a callback, which it will call,
-funishing a monad called `componentContains`.  We can then chain a series
-of tests.
+**Note:** text() and exactly() are not implemented yet.
 
 ### A monad for Jasmine tests
 
@@ -60,10 +60,10 @@ a *new* monad constructed from the data transformed in the function.
 
 Our monad wraps a few things.  The important ones are the `value`
 and the `messages`.  The `value` depends on the type of monad we
-are constructing.  In the general case it will be a React component.
-Basically, the monad is simply a wrapper for the component that
-will allow us to chain filters and matchers.  Later there will also
-be a similar monad that contains DOM nodes (TBD).
+are constructing.  We will contain either a single React
+component, or a list of React components, depending on the type
+of monad.  Basically, the monad is simply a wrapper for the component that
+will allow us to chain filters and matchers.
 
 The other main thing the monad wraps are the `messages` for the
 last run matcher.  Jasmine has an odd way of outputting error
@@ -73,24 +73,19 @@ for when the matcher does not  pass when `.not` was supplied.
 We store these two messages from the last run matcher in
 @messages.
 
-You can see the there is a method called `return` that simply
-calls the constructor.  This probably looks a bit odd, but
-`return` is what Haskel uses for creating a new Monad.  When
-you see the implementation of a matcher (see below), you will
-see why it is called `return`.  We wont cause confusion with
+In the following two methods You can see the there is a method
+called `return` that simply calls the constructor.  This probably
+looks a bit odd, but `return` is what Haskel uses for creating a new
+Monad.  When you see the implementation of a matcher (see below), you
+will see why it is called `return`.  We wont cause confusion with
 the reserved word because we will always invoke it as
 `@return()` or `monad.return()`.
 
       constructor: (@value, @util, @testers, @messages) ->
         @messages = [] if !@messages?
-        @with = this
-        @and = this
 
       return: (value, messages) ->
         new @constructor(value, @util, @testers, messages)
-
-`@with` and `@and` are simply properties that allow a more
-English language fluent chaining.
 
 To be a monad, we need to be able to run arbitrary functions
 and have the wrapped value in the monad passed to it.  Historically
@@ -136,11 +131,45 @@ expects.
             result.message = @messages[0]
         return result
 
-### A monad for filtering collections of DOM nodes
+### A monad for filtering collections of React components
 
-    class DOMFilter extends JasmineMonad
+This class filters collections React components, often for
+the purpose of finding a DOM node with a specific CSS
+class, or ID.
 
-#### Testing CSS classes
+    class ComponentFilter extends JasmineMonad
+
+Because this monad deals with filtering lists of components
+it is nice to have a couple of dummy properties that
+allow us to use a more fluent English expression.
+`@with` and `@and` can be used for that purpose.
+
+      constructor: (@value, @util, @testers, @messages) ->
+        super(@value, @util, @testers, @messages)
+        @with = this
+        @and = this
+
+#### Filtering nodes by CSS class
+
+As this is the first monadic function we have seen, I will describe it
+in a bit more detail.  Notice that the first line is a call to `@bind`.
+You pass it a callback which accepts a list of components.  `@bind` will run
+the function and pass `@value` in as the `component`.  You might be
+wondering, "why dont we just use @value directly -- it is available
+to us".  The reason we dont is because `@bind` is implementing our
+Maybe functionality.  If we neglect to call it, we will lose that
+functionality.  Although it is tempting to go around the structure
+of the monad and treat it as any other object, it is better to follow
+the interfact.
+
+Secondly, you will notice that we call `@return` at the end.  This
+builds a new Monad, wrapping the new component list and messages.  Note that
+we return `null` in the case that our matcher fails.  This will stop
+all subsequently chained matchers from running.
+
+Be careful to only have one exit point in your monadic functions.
+Otherwise you will have silly looking code that looks like:
+`return @return(component, messages)`.
 
       cssClass: (cssClass) ->
         @bind (nodes) =>
@@ -163,19 +192,23 @@ expects.
           else
             @return(null, messages)
 
-### A monad for filtering React components
+### A monad for making queries of single Components
 
-    class ComponentFilter extends JasmineMonad
+When we first start out, we are likely to have only a single
+component.  This monad is used for querying that component
+and getting a list of nodes that we will filter later.
 
-Most of the methods on `ComponentFilter` will actually want to
-return a DOMFilter so the user can filter the returned DOM
+    class ComponentQuery extends JasmineMonad
+
+Most of the methods on `ComponentQuery` will actually want to
+return a ComponentFilter so the user can filter the collection of returned 
 nodes.  If we were using a language with strong typing the compiler
 would be able to construct the correct the correct Monad based
 on the types.  However, we are using Coffeescript, so we have to
 give it a helping hand by making a different `return` method.
 
-      returnDOMComponents: (nodes, messages) ->
-        new DOMFilter(nodes, @util, @testers, messages)
+      returnMany: (nodes, messages) ->
+        new ComponentFilter(nodes, @util, @testers, messages)
 
 #### Testing for DOM tags
 
@@ -183,25 +216,6 @@ One of the most common kinds of tests is to determine whether or not
 a component contains a DOM "tag" (eg "h1", "div", etc). This matcher
 passes if there is at least one.
 
-As this is the first monadic function we have seen, I will describe it
-in a bit more detail.  Notice that the first line is a call to `@bind`.
-You pass it a callback which accepts a component.  `@bind` will run
-the function and pass `@value` in as the `component`.  You might be
-wondering, "why dont we just use @value directly -- it is available
-to us".  The reason we dont is because `@bind` is implementing our
-Maybe functionality.  If we neglect to call it, we will lose that
-functionality.  Although it is tempting to go around the structure
-of the monad and treat it as any other object, it is better to follow
-the interfact.
-
-Secondly, you will notice that we call `@return` at the end.  This
-builds a new Monad, wrapping the component and messages.  Note that
-we return `null` in the case that our matcher fails.  This will stop
-all subsequently chained matchers from running.
-
-Be careful to only have one exit point in your monadic functions.
-Otherwise you will have silly looking code that looks like:
-`return @return(component, messages)`.
 
       tags: (tag) ->
         @bind (component) =>
@@ -211,7 +225,7 @@ Otherwise you will have silly looking code that looks like:
             "Expected not to find DOM tag #{tag}, but there were #{nodes.length}."
           ]
           if nodes.length > 0
-            @returnDOMComponents(nodes, messages)
+            @returnMany(nodes, messages)
           else
             @return(null, messages)
 
@@ -226,7 +240,7 @@ all of our matchers are actually implemented as methods on our monads.
 
       toContainReact: (util, testers) ->
         compare: (component, func) ->
-          filter = new ComponentFilter(component, util, testers)
+          filter = new ComponentQuery(component, util, testers)
           func(filter)
 
 **Back**

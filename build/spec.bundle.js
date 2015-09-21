@@ -22594,7 +22594,7 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ComponentFilter, DOMFilter, JasmineMonad, React, ReactMatchers, Utils,
+	var ComponentFilter, ComponentQuery, JasmineMonad, React, ReactMatchers, Utils,
 	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	  hasProp = {}.hasOwnProperty;
 
@@ -22611,8 +22611,6 @@
 	    if (this.messages == null) {
 	      this.messages = [];
 	    }
-	    this["with"] = this;
-	    this.and = this;
 	  }
 
 	  JasmineMonad.prototype["return"] = function(value, messages) {
@@ -22649,14 +22647,20 @@
 
 	})();
 
-	DOMFilter = (function(superClass) {
-	  extend(DOMFilter, superClass);
+	ComponentFilter = (function(superClass) {
+	  extend(ComponentFilter, superClass);
 
-	  function DOMFilter() {
-	    return DOMFilter.__super__.constructor.apply(this, arguments);
+	  function ComponentFilter(value1, util1, testers1, messages1) {
+	    this.value = value1;
+	    this.util = util1;
+	    this.testers = testers1;
+	    this.messages = messages1;
+	    ComponentFilter.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
+	    this["with"] = this;
+	    this.and = this;
 	  }
 
-	  DOMFilter.prototype.cssClass = function(cssClass) {
+	  ComponentFilter.prototype.cssClass = function(cssClass) {
 	    return this.bind((function(_this) {
 	      return function(nodes) {
 	        var match, matched, messages, node;
@@ -22691,29 +22695,29 @@
 	    })(this));
 	  };
 
-	  return DOMFilter;
+	  return ComponentFilter;
 
 	})(JasmineMonad);
 
-	ComponentFilter = (function(superClass) {
-	  extend(ComponentFilter, superClass);
+	ComponentQuery = (function(superClass) {
+	  extend(ComponentQuery, superClass);
 
-	  function ComponentFilter() {
-	    return ComponentFilter.__super__.constructor.apply(this, arguments);
+	  function ComponentQuery() {
+	    return ComponentQuery.__super__.constructor.apply(this, arguments);
 	  }
 
-	  ComponentFilter.prototype.returnDOMComponents = function(nodes, messages) {
-	    return new DOMFilter(nodes, this.util, this.testers, messages);
+	  ComponentQuery.prototype.returnMany = function(nodes, messages) {
+	    return new ComponentFilter(nodes, this.util, this.testers, messages);
 	  };
 
-	  ComponentFilter.prototype.tags = function(tag) {
+	  ComponentQuery.prototype.tags = function(tag) {
 	    return this.bind((function(_this) {
 	      return function(component) {
 	        var messages, nodes;
 	        nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
 	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there were " + nodes.length + "."];
 	        if (nodes.length > 0) {
-	          return _this.returnDOMComponents(nodes, messages);
+	          return _this.returnMany(nodes, messages);
 	        } else {
 	          return _this["return"](null, messages);
 	        }
@@ -22721,7 +22725,7 @@
 	    })(this));
 	  };
 
-	  return ComponentFilter;
+	  return ComponentQuery;
 
 	})(JasmineMonad);
 
@@ -22730,7 +22734,7 @@
 	    return {
 	      compare: function(component, func) {
 	        var filter;
-	        filter = new ComponentFilter(component, util, testers);
+	        filter = new ComponentQuery(component, util, testers);
 	        return func(filter);
 	      }
 	    };
