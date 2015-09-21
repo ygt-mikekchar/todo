@@ -59,6 +59,12 @@ For example, [please follow this link](literate-example.litcoffee)
 This file is just a loader that gives webpack a place
 to load everything all at once.
 
-[React components in this project](components.cjsx.md)
+[React components in this project](components.litcoffee)
 
-    require "./components.litcoffee"
+    React = require("react")
+    TodoApp = require "./components.litcoffee"
+
+    React.render(
+      <TodoApp />,
+      document.getElementById('js-todo-start')
+    )

@@ -44,7 +44,13 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(175);
+	var React, TodoApp;
+
+	React = __webpack_require__(176);
+
+	TodoApp = __webpack_require__(175);
+
+	React.render(React.createElement(TodoApp, null), document.getElementById('js-todo-start'));
 
 
 /***/ },
