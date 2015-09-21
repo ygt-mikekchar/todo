@@ -6,7 +6,7 @@ We require the addons so that we can get the test utils
     Utils = React.addons.TestUtils
 
 Tests using the React test utilities are both difficult to read and inconvenient
-to type.  As much as possible, I think it's best to write Jasmine matchers
+to type.  As much as possible, I think it is best to write Jasmine matchers
 to make the tests easier to write.
 
 ## DSL for React tests
@@ -174,6 +174,7 @@ Otherwise you will have silly looking code that looks like:
             @return(null, messages)
 
 **Back**
+
 ### Main matcher interface
 
 We actually only require one main method in our matchers interface because

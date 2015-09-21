@@ -61,4 +61,4 @@ to load everything all at once.
 
 [React components in this project](components.cjsx.md)
 
-    require "./components.cjsx.md"
+    require "./components.litcoffee"

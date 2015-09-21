@@ -7,7 +7,7 @@ We require the addons so that we can get the test utils
 
 Probably I should rename the componenets file
 
-    TodoApp = require("../src/components.cjsx.md")
+    TodoApp = require("../src/components.litcoffee")
 
 Note: We are using [jasmine-given](https://github.com/searls/jasmine-given)
 in these thests.  It is being loaded by [spec/index.html](spec/index.html).
