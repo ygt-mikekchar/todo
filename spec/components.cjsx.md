@@ -30,6 +30,8 @@ to jasmine to make our lives easier.
         @subject = Utils.renderIntoDocument(
           <TodoApp />
         )
-      Then -> expect(@subject).toContainReact(tag: "div")
+      Then -> expect(@subject).toContainReact (subjectContains) ->
+        subjectContains.tags("div")
+                       .result()
 
 **Back**

@@ -70,8 +70,8 @@
 	    return this.subject = Utils.renderIntoDocument(React.createElement(TodoApp, null));
 	  });
 	  return Then(function() {
-	    return expect(this.subject).toContainReact({
-	      tag: "div"
+	    return expect(this.subject).toContainReact(function(subjectContains) {
+	      return subjectContains.tags("div").result();
 	    });
 	  });
 	});
@@ -22593,34 +22593,75 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Compare, React, ReactMatchers, Utils;
+	var ComponentFilter, React, ReactMatchers, Utils;
 
 	React = __webpack_require__(2);
 
 	Utils = React.addons.TestUtils;
 
-	Compare = {
-	  containsTag: function(component, tag, util, testers) {
-	    var nodes, result;
-	    result = {};
-	    nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
-	    result.pass = util.equals(nodes.length, 1, testers);
-	    if (result.pass) {
-	      result.message = "Expected one " + tag + ", but there were " + nodes.length;
+	ComponentFilter = (function() {
+	  function ComponentFilter(component1, util1, testers1, messages1) {
+	    this.component = component1;
+	    this.util = util1;
+	    this.testers = testers1;
+	    this.messages = messages1;
+	    if (this.messages == null) {
+	      this.messages = [];
+	    }
+	  }
+
+	  ComponentFilter.prototype["return"] = function(component, messages) {
+	    return new ComponentFilter(component, this.util, this.testers, messages);
+	  };
+
+	  ComponentFilter.prototype.bind = function(func) {
+	    if (this.component != null) {
+	      return func(this.component);
 	    } else {
-	      result.message = "Expected not to have " + tag + ", but there was";
+	      return this;
+	    }
+	  };
+
+	  ComponentFilter.prototype.result = function() {
+	    var result;
+	    result = {};
+	    result.pass = this.util.equals(this.component != null, true, this.testers);
+	    if (this.messages != null) {
+	      if (result.pass) {
+	        result.message = this.messages[1];
+	      } else {
+	        result.message = this.messages[0];
+	      }
 	    }
 	    return result;
-	  }
-	};
+	  };
+
+	  ComponentFilter.prototype.tags = function(tag) {
+	    return this.bind((function(_this) {
+	      return function(component) {
+	        var messages, nodes;
+	        nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
+	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there were " + nodes.length + "."];
+	        if (nodes.length > 0) {
+	          return _this["return"](component, messages);
+	        } else {
+	          return _this["return"](null, messages);
+	        }
+	      };
+	    })(this));
+	  };
+
+	  return ComponentFilter;
+
+	})();
 
 	ReactMatchers = {
 	  toContainReact: function(util, testers) {
 	    return {
-	      compare: function(component, expected) {
-	        if (expected.tag != null) {
-	          return Compare.containsTag(component, expected.tag, util, testers);
-	        }
+	      compare: function(component, func) {
+	        var filter;
+	        filter = new ComponentFilter(component, util, testers);
+	        return func(filter);
 	      }
 	    };
 	  }
