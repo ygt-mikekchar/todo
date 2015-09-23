@@ -21,6 +21,8 @@ To see a working example of this, take a look
 at the [html](../index.html) for the
 [demo](http://ygt-mikekchar.github.io/todo).
 
+**Tests are missing**
+
     React = require("react")
     TodoApp = require "./TodoApp.litcoffee"
 
