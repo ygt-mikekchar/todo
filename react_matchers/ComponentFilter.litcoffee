@@ -55,7 +55,7 @@ to us".  The reason we dont is because `@bind` is implementing our
 Maybe functionality.  If we neglect to call it, we will lose that
 functionality.  Although it is tempting to go around the structure
 of the monad and treat it as any other object, it is better to follow
-the interfact.
+the interface.
 
 Secondly, you will notice that we call `@return` at the end.  This
 builds a new Monad, wrapping the new component list and messages.  Note that

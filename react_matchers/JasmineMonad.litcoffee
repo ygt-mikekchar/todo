@@ -13,7 +13,7 @@ This is the base class for our matcher monads.  In general, a monad simply wraps
 a value and provides a way to run arbitrary functions using those
 wrapped values.  Monads are meant to be immutable.  This means that it
 doesnt change state.  You can only set instance variables in the constructor.
-Because of that, the functions that use monads data usually return
+Because of that, the functions that use a monads data usually return
 a *new* monad constructed from the data transformed in the function.
 
     class JasmineMonad
@@ -28,18 +28,19 @@ will allow us to chain filters and matchers.
 The other main thing the monad wraps are the `messages` for the
 last run matcher.  Jasmine has an odd way of outputting error
 messages.  When you write a matcher, you need to supply the
-error message both for whent the matcher does not pass *and*
+error message both for when the matcher does not pass *and*
 for when the matcher does not  pass when `.not` was supplied.
 We store these two messages from the last run matcher in
 @messages.
 
-In the following two methods You can see the there is a method
+In the following two methods You can see there is a method
 called `return` that simply calls the constructor.  This probably
 looks a bit odd, but `return` is what Haskel uses for creating a new
-Monad.  When you see the implementation of a matcher (see below), you
-will see why it is called `return`.  We wont cause confusion with
-the reserved word because we will always invoke it as
-`@return()` or `monad.return()`.
+Monad.  When you see the 
+[implementation of a matcher](./ComponentFilter.litcoffee#filtering-nodes-by-css-class),
+you will see why it is called `return`.  The name will not cause
+a conflict with the reserved word `return` because we will always
+invoke it as `@return()` or `monad.return()`.
 
       constructor: (@value, @util, @testers, @messages) ->
         @messages = [] if !@messages?
@@ -95,14 +96,27 @@ In constructing the messages it is often the case that you want to
 use the word "was/were" depending on the number of items.  This
 is a small helper utility.
 
+For example:
+```
+"there #{@was(1)}" # == "there was 1"
+"There #{@was(2)}" # == "there were 2"
+```
+
       was: (num) ->
         'was'.pluralize(num, 'were') + " #{num}"
 
 Similarly we often want to count the number of objects using the
 correct pluralization.
 
+For example:
+```
+"I have #{@count(1, 'apple')}"            # == "I have 1 apple"
+"I have #{@count(2, 'apple')}"            # == "I have 2 apples"
+"I have #{@count(2, 'mommy', 'mommies)}"  # == "I have 2 mommies" 
+```
+
       count: (num, singular, plural) ->
-        "#{num} #{singular.pluralize(num)}"
+        "#{num} #{singular.pluralize(num, plural)}"
 
 Export our matchers from this file.
 
