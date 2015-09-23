@@ -1,3 +1,3 @@
 This is just a loader
 
-    require "./components.litcoffee"
+    require "./TodoApp.litcoffee"
