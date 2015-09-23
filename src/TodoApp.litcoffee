@@ -6,10 +6,10 @@
 
 ## Tests
 
-There are [unit tests](spec/TodoApp.litcoffee) for this code.  There is a link
+There are [unit tests](../spec/TodoApp.litcoffee) for this code.  There is a link
 to the tests (and back) for each piece of functionality that has a test.
 This code uses [jasmine-given](https://github.com/searls/jasmine-given) and
-some hand built [React Matchers](react_matchers.litcoffee) to make the tests
+some hand built [React Matchers](../spec/react_matchers.litcoffee) to make the tests
 easier to write and read.
 
 ## Inline styles
@@ -40,7 +40,7 @@ a lot of effort, you need to keep a div around that is visible to put the
 transition on.  The transition will only happen if the element was pre-existing
 when the  transition is applied.
 
-[Tests](spec/TodoApp.litcoffee#TodoApp-renders-a-div)
+[Tests](../spec/TodoApp.litcoffee#TodoApp-renders-a-div)
 
       render: ->
         <div className='js-todo-app' style={@inlineStyles()} >
