@@ -26,6 +26,13 @@ and especially unit tests.  For that reason, I've decided to
 implement this project in
 [literate Coffeescript](http://coffeescript.org/#literate).
 
+Note: There is an unfortunate problem with the literate
+filter on the CJSX compiler.  It gets hung up with
+apostrophes (') causing the compiler to break.  Because of
+this, I have avoided using contractions and omit the
+apostrophe in the CJSX files.  It probably looks a bit
+strange, but please bear with me until I can find a fix.
+
 ### Literate Programming
 
 If you are unfamiliar with
