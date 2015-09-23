@@ -22751,7 +22751,7 @@
 	  };
 
 	  JasmineMonad.prototype.count = function(num, singular, plural) {
-	    return num + " " + (singular.pluralize(num));
+	    return num + " " + (singular.pluralize(num, plural));
 	  };
 
 	  return JasmineMonad;

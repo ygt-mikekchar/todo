@@ -112,7 +112,7 @@ For example:
 ```
 "I have #{@count(1, 'apple')}"            # == "I have 1 apple"
 "I have #{@count(2, 'apple')}"            # == "I have 2 apples"
-"I have #{@count(2, 'mommy', 'mommies)}"  # == "I have 2 mommies" 
+"I have #{@count(2, 'mommy', 'mommies')}"  # == "I have 2 mommies" 
 ```
 
       count: (num, singular, plural) ->
