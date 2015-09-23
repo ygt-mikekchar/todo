@@ -9,10 +9,17 @@ to this project and to
 
 ## Explore the source
 
-This file is just a loader that gives webpack a place
-to load everything all at once.
+This is the code that embeds the TODO app in your HTML.
+Basically you use it like:
 
-[React components in this project](TodoApp.litcoffee)
+```html
+<div class="js-todo-app"></div>
+```
+
+Running this code will render the TodoApp in that div.
+To see a working example of this, take a look
+at the [html](../index.html) for the
+[demo](http://ygt-mikekchar.github.io/todo).
 
     React = require("react")
     TodoApp = require "./TodoApp.litcoffee"
@@ -21,3 +28,8 @@ to load everything all at once.
       <TodoApp />,
       document.getElementById('js-todo-app')
     )
+
+[TodoApp](TodoApp.litcoffee) is the top level react componenet
+for the app.
+
+**Back**
