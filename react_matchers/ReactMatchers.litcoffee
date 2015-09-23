@@ -28,10 +28,10 @@ To compensate for this we will make a Maybe monad which will allow us to
 chain a series of filters.  People often get flustered about monads, but
 their use is very straight forward.
 
-In example, aboce, `toBeAComponent` accepts a callback, which it will call,
+In example, above, `toBeAComponent` accepts a callback, which it will call,
 funishing a monad called `it`.  We can then chain a series of tests.
 
-This chain in this example means that I am expecting my component to contain a DOM `div`
+The chain in this example means that I am expecting my component to contain a DOM `div`
 with the class `my-css-class`.  This `div` should contain the text, `contents`.
 There should be exactly 2 such `divs` in my tree.  The `result()` at the
 end simply means, "Im done with my testing, please calculate the results".
@@ -72,8 +72,6 @@ all of our matchers are actually implemented as methods on our monads.
         compare: (component, func) ->
           filter = new ComponentQuery(component, util, testers)
           func(filter)
-
-**Back**
 
 Export our matchers from this file.
 
