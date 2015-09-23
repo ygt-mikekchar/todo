@@ -32,4 +32,10 @@ at the [html](../index.html) for the
 [TodoApp](TodoApp.litcoffee) is the top level react componenet
 for the app.
 
+Note that this file is the top level file loaded by
+[webpack](https://webpack.github.io/).  You can
+browse the [configuration file](../webpack.config.js)
+if you like, but discussion of how it works is out
+of scope for this document.
+
 **Back**
