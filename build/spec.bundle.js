@@ -22606,79 +22606,19 @@
 	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	  hasProp = {}.hasOwnProperty;
 
+	__webpack_require__(178);
+
 	React = __webpack_require__(2);
 
 	Utils = React.addons.TestUtils;
 
-	String.prototype.pluralize = function(num, plural) {
-	  if (num === 1) {
-	    return this;
-	  }
-	  if (plural != null) {
-	    return plural;
-	  } else {
-	    return this + "s";
-	  }
-	};
-
-	JasmineMonad = (function() {
-	  function JasmineMonad(value1, util1, testers1, messages1) {
-	    this.value = value1;
-	    this.util = util1;
-	    this.testers = testers1;
-	    this.messages = messages1;
-	    if (this.messages == null) {
-	      this.messages = [];
-	    }
-	  }
-
-	  JasmineMonad.prototype["return"] = function(value, messages) {
-	    return new this.constructor(value, this.util, this.testers, messages);
-	  };
-
-	  JasmineMonad.prototype.bind = function(func) {
-	    if (this.passed()) {
-	      return func(this.value);
-	    } else {
-	      return this;
-	    }
-	  };
-
-	  JasmineMonad.prototype.passed = function() {
-	    return this.value != null;
-	  };
-
-	  JasmineMonad.prototype.result = function() {
-	    var result;
-	    result = {};
-	    result.pass = this.util.equals(this.passed(), true, this.testers);
-	    if (this.messages != null) {
-	      if (result.pass) {
-	        result.message = this.messages[1];
-	      } else {
-	        result.message = this.messages[0];
-	      }
-	    }
-	    return result;
-	  };
-
-	  JasmineMonad.prototype.was = function(num) {
-	    return 'was'.pluralize(num, 'were') + (" " + num);
-	  };
-
-	  JasmineMonad.prototype.count = function(num, singular, plural) {
-	    return num + " " + (singular.pluralize(num));
-	  };
-
-	  return JasmineMonad;
-
-	})();
+	JasmineMonad = __webpack_require__(179);
 
 	ComponentFilter = (function(superClass) {
 	  extend(ComponentFilter, superClass);
 
-	  function ComponentFilter(value1, util1, testers1, messages1) {
-	    this.value = value1;
+	  function ComponentFilter(value, util1, testers1, messages1) {
+	    this.value = value;
 	    this.util = util1;
 	    this.testers = testers1;
 	    this.messages = messages1;
@@ -22745,8 +22685,8 @@
 	ComponentQuery = (function(superClass) {
 	  extend(ComponentQuery, superClass);
 
-	  function ComponentQuery(value1, util1, testers1, messages1) {
-	    this.value = value1;
+	  function ComponentQuery(value, util1, testers1, messages1) {
+	    this.value = value;
 	    this.util = util1;
 	    this.testers = testers1;
 	    this.messages = messages1;
@@ -22790,6 +22730,86 @@
 	};
 
 	module.exports = ReactMatchers;
+
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	String.prototype.pluralize = function(num, plural) {
+	  if (num === 1) {
+	    return this;
+	  }
+	  if (plural != null) {
+	    return plural;
+	  } else {
+	    return this + "s";
+	  }
+	};
+
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JasmineMonad;
+
+	__webpack_require__(178);
+
+	JasmineMonad = (function() {
+	  function JasmineMonad(value1, util, testers, messages1) {
+	    this.value = value1;
+	    this.util = util;
+	    this.testers = testers;
+	    this.messages = messages1;
+	    if (this.messages == null) {
+	      this.messages = [];
+	    }
+	  }
+
+	  JasmineMonad.prototype["return"] = function(value, messages) {
+	    return new this.constructor(value, this.util, this.testers, messages);
+	  };
+
+	  JasmineMonad.prototype.bind = function(func) {
+	    if (this.passed()) {
+	      return func(this.value);
+	    } else {
+	      return this;
+	    }
+	  };
+
+	  JasmineMonad.prototype.passed = function() {
+	    return this.value != null;
+	  };
+
+	  JasmineMonad.prototype.result = function() {
+	    var result;
+	    result = {};
+	    result.pass = this.util.equals(this.passed(), true, this.testers);
+	    if (this.messages != null) {
+	      if (result.pass) {
+	        result.message = this.messages[1];
+	      } else {
+	        result.message = this.messages[0];
+	      }
+	    }
+	    return result;
+	  };
+
+	  JasmineMonad.prototype.was = function(num) {
+	    return 'was'.pluralize(num, 'were') + (" " + num);
+	  };
+
+	  JasmineMonad.prototype.count = function(num, singular, plural) {
+	    return num + " " + (singular.pluralize(num));
+	  };
+
+	  return JasmineMonad;
+
+	})();
+
+	module.exports = JasmineMonad;
 
 
 /***/ }
