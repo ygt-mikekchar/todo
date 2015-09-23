@@ -1,4 +1,4 @@
-You have successfully followed the link to this document.
+## Success! 
 
 Because I will sometimes only present a small portion of
 a file (especially for tests), I will indicate when the
