@@ -10,10 +10,10 @@ We require the addons so that we can get the test utils
 Note: We are using [jasmine-given](https://github.com/searls/jasmine-given)
 in these thests.  It is being loaded by [spec/index.html](spec/index.html).
 
-We are also going to add some [React Matchers](react_matchers.litcoffee)
+We are also going to add some [React Matchers](../ReactMatchers/ReactMatchers.litcoffee)
 to jasmine to make our lives easier.
 
-    ReactMatchers = require("./react_matchers.litcoffee")
+    ReactMatchers = require("../react_matchers/ReactMatchers.litcoffee")
 
     describe "Render a TodoApp", ->
       beforeEach ->
