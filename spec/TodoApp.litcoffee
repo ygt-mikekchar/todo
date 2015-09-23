@@ -15,23 +15,23 @@ to jasmine to make our lives easier.
 
     ReactMatchers = require("./react_matchers.litcoffee")
 
-    describe "TodoApp", ->
+    describe "Render a TodoApp", ->
       beforeEach ->
         jasmine.addMatchers(ReactMatchers)
-
-**Back**
-
-### TodoApp renders a div
-[Production](../src/TodoApp.litcoffee#todoapp-renders-a-div)
 
       When ->
         @subject = Utils.renderIntoDocument(
           <TodoApp />
         )
-      Then -> expect(@subject).toContainReact (subjectContains) ->
-        subjectContains.tags("div")
-                       .with.cssClass("js-todo-app")
-                       .exactly(1).time
-                       .result()
+**Back**
+
+### TodoApp renders a div
+[Production Code](../src/TodoApp.litcoffee#todoapp-renders-a-div)
+
+      Then -> expect(@subject).toBeAComponent (it) ->
+        it.contains.tags("div")
+          .with.cssClass("js-todo-app")
+          .exactly(1).time
+          .result()
 
 **Back**

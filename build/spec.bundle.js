@@ -61,7 +61,7 @@
 
 	ReactMatchers = __webpack_require__(177);
 
-	describe("TodoApp", function() {
+	describe("Render a TodoApp", function() {
 	  beforeEach(function() {
 	    return jasmine.addMatchers(ReactMatchers);
 	  });
@@ -69,8 +69,8 @@
 	    return this.subject = Utils.renderIntoDocument(React.createElement(TodoApp, null));
 	  });
 	  return Then(function() {
-	    return expect(this.subject).toContainReact(function(subjectContains) {
-	      return subjectContains.tags("div")["with"].cssClass("js-todo-app").exactly(1).time.result();
+	    return expect(this.subject).toBeAComponent(function(it) {
+	      return it.contains.tags("div")["with"].cssClass("js-todo-app").exactly(1).time.result();
 	    });
 	  });
 	});
@@ -22745,8 +22745,13 @@
 	ComponentQuery = (function(superClass) {
 	  extend(ComponentQuery, superClass);
 
-	  function ComponentQuery() {
-	    return ComponentQuery.__super__.constructor.apply(this, arguments);
+	  function ComponentQuery(value1, util1, testers1, messages1) {
+	    this.value = value1;
+	    this.util = util1;
+	    this.testers = testers1;
+	    this.messages = messages1;
+	    ComponentQuery.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
+	    this.contains = this;
 	  }
 
 	  ComponentQuery.prototype.returnMany = function(nodes, messages) {
@@ -22773,7 +22778,7 @@
 	})(JasmineMonad);
 
 	ReactMatchers = {
-	  toContainReact: function(util, testers) {
+	  toBeAComponent: function(util, testers) {
 	    return {
 	      compare: function(component, func) {
 	        var filter;

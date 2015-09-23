@@ -11,6 +11,19 @@ to make the tests easier to write.
 
 ## DSL for React tests
 
+These matchers will allow us to write tests like:
+
+```coffee
+  expect(component).toBeAComponent (it) ->
+    it.contains.tags("div")
+      .with.cssClass("my-class")
+      .and.text("contents")
+      .exactly(2).times
+      .result()
+```
+
+**Note:** text() is not implemented yet.
+
 One of the biggest problems with writing Jasmine matchers for React is that
 you often have to search through Reacts tree to find the things you want
 to test.  In Rspec (in Ruby) you can often chain matchers together to create
@@ -18,23 +31,12 @@ complex and readable tests.  Alas, this is not possible for Jasmine.
 
 To compensate for this we will make a Maybe monad which will allow us to
 chain a series of filters.  People often get flustered about monads, but
-their use is very straight forward.  Here is an example of the kind of 
-thing we want to do.
+their use is very straight forward.
 
-```coffee
-  expect(component).toContainReact (componentContains) ->
-    componentContains.tags("div")
-      .with.cssClass("my-class")
-      .and.text("contents")
-      .exactly(2).times
-      .result()
-```
+In example, aboce, `toBeAComponent` accepts a callback, which it will call,
+funishing a monad called `it`.  We can then chain a series of tests.
 
-In our example, `toContainReact` accepts a callback, which it will call,
-funishing a monad called `componentContains`.  We can then chain a series
-of tests.
-
-This chain means that I am expecting my component to contain a DOM `div`
+This chain in this example means that I am expecting my component to contain a DOM `div`
 with the class `my-css-class`.  This `div` should contain the text, `contents`.
 There should be exactly 2 such `divs` in my tree.  The `result()` at the
 end simply means, "Im done with my testing, please calculate the results".
@@ -45,12 +47,10 @@ wont bother trying to figure out the cssClass, etc.  It will ignore
 everything until it gets to the `result`.  Its a useful technique when
 you dont want to constantly check return values for errors.
 
-**Note:** text() is not implemented yet.
-
 ### Useful pluralize function
 
-The tests need to output values that are pluralized, so this helper
-method is useful.
+Before discussing the monad, the tests need to output values that are
+pluralized.  This helper method is useful.
 
     String.prototype.pluralize = (num, plural) ->
       return this if num == 1
@@ -238,6 +238,10 @@ and getting a list of nodes that we will filter later.
 
     class ComponentQuery extends JasmineMonad
 
+      constructor: (@value, @util, @testers, @messages) ->
+        super(@value, @util, @testers, @messages)
+        @contains = this
+
 Most of the methods on `ComponentQuery` will actually want to
 return a ComponentFilter so the user can filter the collection of returned 
 nodes.  If we were using a language with strong typing the compiler
@@ -276,7 +280,7 @@ all of our matchers are actually implemented as methods on our monads.
 
     ReactMatchers =
 
-      toContainReact: (util, testers) ->
+      toBeAComponent: (util, testers) ->
         compare: (component, func) ->
           filter = new ComponentQuery(component, util, testers)
           func(filter)
