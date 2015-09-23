@@ -4,7 +4,8 @@
 * [Demo/Tests](http://ygt-mikekchar.github.io/todo)
 
 If you like, you can read an [introduction](introduction.md)
-to this project and to literate programming.
+to this project and to
+[literate programming](introduction.md#literate-programming).
 
 ## Explore the source
 
