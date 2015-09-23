@@ -7,10 +7,14 @@ class, or ID.
 ## Example
 
 ```
-  componentFilter.with.cssClass("my-class")
-                 .exactly(2).times
-                 .result()
+componentFilter.with.cssClass("my-class")
+               .exactly(2).times
+               .result()
 ```
+
+This will take the list of nodes in componentFilter,
+filter them by cssClass and return a matching result
+if there are exactly 2 of them.
 
 ## Requirements
 

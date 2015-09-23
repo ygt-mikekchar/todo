@@ -22602,9 +22602,7 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ComponentFilter, ComponentQuery, JasmineMonad, React, ReactMatchers, Utils,
-	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-	  hasProp = {}.hasOwnProperty;
+	var ComponentQuery, React, ReactMatchers, Utils;
 
 	__webpack_require__(178);
 
@@ -22612,44 +22610,7 @@
 
 	Utils = React.addons.TestUtils;
 
-	JasmineMonad = __webpack_require__(179);
-
-	ComponentFilter = __webpack_require__(180);
-
-	ComponentQuery = (function(superClass) {
-	  extend(ComponentQuery, superClass);
-
-	  function ComponentQuery(value, util1, testers1, messages1) {
-	    this.value = value;
-	    this.util = util1;
-	    this.testers = testers1;
-	    this.messages = messages1;
-	    ComponentQuery.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
-	    this.contains = this;
-	  }
-
-	  ComponentQuery.prototype.returnMany = function(nodes, messages) {
-	    return new ComponentFilter(nodes, this.util, this.testers, messages);
-	  };
-
-	  ComponentQuery.prototype.tags = function(tag) {
-	    return this.bind((function(_this) {
-	      return function(component) {
-	        var messages, nodes;
-	        nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
-	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there " + (_this.was(nodes.length)) + "."];
-	        if (nodes.length > 0) {
-	          return _this.returnMany(nodes, messages);
-	        } else {
-	          return _this["return"](null, messages);
-	        }
-	      };
-	    })(this));
-	  };
-
-	  return ComponentQuery;
-
-	})(JasmineMonad);
+	ComponentQuery = __webpack_require__(179);
 
 	ReactMatchers = {
 	  toBeAComponent: function(util, testers) {
@@ -22684,6 +22645,60 @@
 
 /***/ },
 /* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ComponentFilter, ComponentQuery, JasmineMonad, React, Utils,
+	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
+
+	React = __webpack_require__(2);
+
+	Utils = React.addons.TestUtils;
+
+	JasmineMonad = __webpack_require__(180);
+
+	ComponentFilter = __webpack_require__(181);
+
+	ComponentQuery = (function(superClass) {
+	  extend(ComponentQuery, superClass);
+
+	  function ComponentQuery(value, util, testers, messages1) {
+	    this.value = value;
+	    this.util = util;
+	    this.testers = testers;
+	    this.messages = messages1;
+	    ComponentQuery.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
+	    this.contains = this;
+	  }
+
+	  ComponentQuery.prototype.returnMany = function(nodes, messages) {
+	    return new ComponentFilter(nodes, this.util, this.testers, messages);
+	  };
+
+	  ComponentQuery.prototype.tags = function(tag) {
+	    return this.bind((function(_this) {
+	      return function(component) {
+	        var messages, nodes;
+	        nodes = Utils.scryRenderedDOMComponentsWithTag(component, tag);
+	        messages = ["Expected to find DOM tag " + tag + ", but it was not there.", "Expected not to find DOM tag " + tag + ", but there " + (_this.was(nodes.length)) + "."];
+	        if (nodes.length > 0) {
+	          return _this.returnMany(nodes, messages);
+	        } else {
+	          return _this["return"](null, messages);
+	        }
+	      };
+	    })(this));
+	  };
+
+	  return ComponentQuery;
+
+	})(JasmineMonad);
+
+	module.exports = ComponentQuery;
+
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var JasmineMonad;
@@ -22747,14 +22762,14 @@
 
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ComponentFilter, JasmineMonad,
 	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
 	  hasProp = {}.hasOwnProperty;
 
-	JasmineMonad = __webpack_require__(179);
+	JasmineMonad = __webpack_require__(180);
 
 	__webpack_require__(178);
 
