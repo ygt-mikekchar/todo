@@ -22614,73 +22614,7 @@
 
 	JasmineMonad = __webpack_require__(179);
 
-	ComponentFilter = (function(superClass) {
-	  extend(ComponentFilter, superClass);
-
-	  function ComponentFilter(value, util1, testers1, messages1) {
-	    this.value = value;
-	    this.util = util1;
-	    this.testers = testers1;
-	    this.messages = messages1;
-	    ComponentFilter.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
-	    this["with"] = this;
-	    this.and = this;
-	    this.time = this;
-	    this.times = this;
-	  }
-
-	  ComponentFilter.prototype.cssClass = function(cssClass) {
-	    return this.bind((function(_this) {
-	      return function(nodes) {
-	        var match, matched, messages, node;
-	        match = function(a, b) {
-	          if (b == null) {
-	            return false;
-	          }
-	          return b.indexOf(a) !== -1;
-	        };
-	        if (nodes != null ? nodes.length : void 0) {
-	          matched = (function() {
-	            var i, len, results;
-	            results = [];
-	            for (i = 0, len = nodes.length; i < len; i++) {
-	              node = nodes[i];
-	              if (match(cssClass, node.props.className)) {
-	                results.push(node);
-	              }
-	            }
-	            return results;
-	          })();
-	        } else {
-	          matched = [];
-	        }
-	        messages = ["Expected to find DOM node with class " + cssClass + ", but it was not there.", "Expected not to find DOM node with class " + cssClass + ", but there " + (_this.was(matched.length)) + "."];
-	        if (matched.length > 0) {
-	          return _this["return"](matched, messages);
-	        } else {
-	          return _this["return"](null, messages);
-	        }
-	      };
-	    })(this));
-	  };
-
-	  ComponentFilter.prototype.exactly = function(num) {
-	    return this.bind((function(_this) {
-	      return function(nodes) {
-	        var messages;
-	        messages = ["Expected to find exactly " + (_this.count(num, 'node')) + ", but there " + (_this.was(nodes.length)), "Expected not find " + (_this.count(num, 'node')) + ", but there " + (_this.was(nodes.length)) + "."];
-	        if (nodes.length === num) {
-	          return _this["return"](nodes, messages);
-	        } else {
-	          return _this["return"](null, messages);
-	        }
-	      };
-	    })(this));
-	  };
-
-	  return ComponentFilter;
-
-	})(JasmineMonad);
+	ComponentFilter = __webpack_require__(180);
 
 	ComponentQuery = (function(superClass) {
 	  extend(ComponentQuery, superClass);
@@ -22810,6 +22744,89 @@
 	})();
 
 	module.exports = JasmineMonad;
+
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ComponentFilter, JasmineMonad,
+	  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
+
+	JasmineMonad = __webpack_require__(179);
+
+	__webpack_require__(178);
+
+	ComponentFilter = (function(superClass) {
+	  extend(ComponentFilter, superClass);
+
+	  function ComponentFilter(value, util, testers, messages1) {
+	    this.value = value;
+	    this.util = util;
+	    this.testers = testers;
+	    this.messages = messages1;
+	    ComponentFilter.__super__.constructor.call(this, this.value, this.util, this.testers, this.messages);
+	    this["with"] = this;
+	    this.and = this;
+	    this.time = this;
+	    this.times = this;
+	  }
+
+	  ComponentFilter.prototype.cssClass = function(cssClass) {
+	    return this.bind((function(_this) {
+	      return function(nodes) {
+	        var match, matched, messages, node;
+	        match = function(a, b) {
+	          if (b == null) {
+	            return false;
+	          }
+	          return b.indexOf(a) !== -1;
+	        };
+	        if (nodes != null ? nodes.length : void 0) {
+	          matched = (function() {
+	            var i, len, results;
+	            results = [];
+	            for (i = 0, len = nodes.length; i < len; i++) {
+	              node = nodes[i];
+	              if (match(cssClass, node.props.className)) {
+	                results.push(node);
+	              }
+	            }
+	            return results;
+	          })();
+	        } else {
+	          matched = [];
+	        }
+	        messages = ["Expected to find DOM node with class " + cssClass + ", but it was not there.", "Expected not to find DOM node with class " + cssClass + ", but there " + (_this.was(matched.length)) + "."];
+	        if (matched.length > 0) {
+	          return _this["return"](matched, messages);
+	        } else {
+	          return _this["return"](null, messages);
+	        }
+	      };
+	    })(this));
+	  };
+
+	  ComponentFilter.prototype.exactly = function(num) {
+	    return this.bind((function(_this) {
+	      return function(nodes) {
+	        var messages;
+	        messages = ["Expected to find exactly " + (_this.count(num, 'node')) + ", but there " + (_this.was(nodes.length)), "Expected not find " + (_this.count(num, 'node')) + ", but there " + (_this.was(nodes.length)) + "."];
+	        if (nodes.length === num) {
+	          return _this["return"](nodes, messages);
+	        } else {
+	          return _this["return"](null, messages);
+	        }
+	      };
+	    })(this));
+	  };
+
+	  return ComponentFilter;
+
+	})(JasmineMonad);
+
+	module.exports = ComponentFilter;
 
 
 /***/ }
