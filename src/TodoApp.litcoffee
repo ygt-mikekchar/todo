@@ -40,7 +40,7 @@ a lot of effort, you need to keep a div around that is visible to put the
 transition on.  The transition will only happen if the element was pre-existing
 when the  transition is applied.
 
-[Tests](../spec/TodoApp.litcoffee#TodoApp-renders-a-div)
+[Tests](../spec/TodoApp.litcoffee#todoapp-renders-a-div)
 
       render: ->
         <div className='js-todo-app' style={@inlineStyles()} >
