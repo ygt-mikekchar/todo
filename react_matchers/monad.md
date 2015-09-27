@@ -1,12 +1,11 @@
 # What is a Monad?
 
-I the risk of writing "Yet another monad tutorial", I want to
-write a little bit about monads and why we might want to use them
-for our React Matchers.
+At the risk of writing "Yet another monad tutorial", I want to
+write a little bit about monads.
 
 Although many incredibly obtuse articles have been written about
-monads ([Wikipedia](https://en.wikipedia.org/wiki/Monad_(functional_programming)
-had, by far, the worst offender), monads are actually quite simple.
+monads  -- [Wikipedia](https://en.wikipedia.org/wiki/Monad_(functional_programming)
+has, by far, the worst offender -- monads are actually quite simple.
 They are simply a class that wraps a value.  You can then run
 some functions on the values in the class.  Monads have to follow
 some rules in order to be monads, but even without knowing these
@@ -119,7 +118,7 @@ class MaybeMonad
     @constructor(value)
 
   bind: (func) ->
-    if @value? then func(value) else this
+    if @value? then func(@value) else this
 ```
 
 Basically, it is exactly the same as the Identity monad, but
