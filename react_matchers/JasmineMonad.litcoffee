@@ -11,36 +11,13 @@ The matchers need to pluralize strings, so we need to load
 
 This is the base class for our matcher monads.  In general, a monad simply wraps
 a value and provides a way to run arbitrary functions using those
-wrapped values.  Monads are meant to be immutable.  This means that it
-doesnt change state.  You can only set instance variables in the constructor.
-Because of that, the functions that use a monads data usually return
-a *new* monad constructed from the data transformed in the function.
+wrapped values.  If you are not familiar with monads you can
+[read more](./monad.md).
+
 
     class JasmineMonad
 
-Our monad wraps a few things.  The important ones are the `value`
-and the `messages`.  The `value` depends on the type of monad we
-are constructing.  We will contain either a single React
-component, or a list of React components, depending on the type
-of monad.  Basically, the monad is simply a wrapper for the component that
-will allow us to chain filters and matchers.
-
-The other main thing the monad wraps are the `messages` for the
-last run matcher.  Jasmine has an odd way of outputting error
-messages.  When you write a matcher, you need to supply the
-error message both for when the matcher does not pass *and*
-for when the matcher does not  pass when `.not` was supplied.
-We store these two messages from the last run matcher in
-@messages.
-
-In the following two methods You can see there is a method
-called `return` that simply calls the constructor.  This probably
-looks a bit odd, but `return` is what Haskel uses for creating a new
-Monad.  When you see the 
-[implementation of a matcher](./ComponentFilter.litcoffee#filtering-nodes-by-css-class),
-you will see why it is called `return`.  The name will not cause
-a conflict with the reserved word `return` because we will always
-invoke it as `@return()` or `monad.return()`.
+Our monad wraps a few things.
 
       constructor: (@value, @util, @testers, @messages) ->
         @messages = [] if !@messages?
@@ -48,20 +25,30 @@ invoke it as `@return()` or `monad.return()`.
       return: (value, messages) ->
         new @constructor(value, @util, @testers, messages)
 
-To be a monad, we need to be able to run arbitrary functions
-and have the wrapped value in the monad passed to it.  Historically
-`bind` is the name for that function.  We are implementing a
-"Maybe" monad.  This means that when `bind()` is called, you only
-run the passed function if some condition holds.  In our case
-we want to run the function if all the matchers up to this point
-have passed.
+Remember that the `return` function is just a convenience function
+that we can use to create new monads of the same type as the one
+we are working with.  It is not the `return` keyword.
 
-Note that in the case where we dont want to run the function, we
-still have to return `this` otherwise we wont be able to chain
-any more functions.  This is the power of the Maybe monad; to
-chain together a series of functions without having to worry
-about error conditions.  It will simply skip over the ones 
-after the error occurs.
+`util` and `testers` are needed by Jasmine for creating
+a result for the matchers.  We need to carry them along.
+
+`messages` is an array containing matcher error messages
+from the last run matcher function.  Jasmine has an odd way
+of outputting error messages.  When you write a matcher, you
+need to supply the error message both for when the matcher does
+not pass *and* for when the matcher does not  pass when `.not`
+was supplied.  We store these two messages from the last run
+matcher in `messages`.
+
+The `value` depends on the type of monad we are constructing.
+`JasmineMonad` is the base class and what we store in `value`
+depends on the concrete class.
+
+Here is the `bind` function that runs functions working
+with the monad.  Because it is a Maybe monad, we only
+run the passed function if `passed` (whether or not all
+of the matchers up to this point have passed) returns
+true:
 
       bind: (func) ->
         if @passed()
@@ -118,6 +105,17 @@ For example:
       count: (num, singular, plural) ->
         "#{num} #{singular.pluralize(num, plural)}"
 
-Export our matchers from this file.
+## Writing matchers
+
+A monad is not much use without a function to use it with.
+Here is an example of a matcher that does nothing:
+
+```
+monad.bind (value) ->
+  messages = [
+  ]
+```
+
+## Export
 
     module.exports = JasmineMonad

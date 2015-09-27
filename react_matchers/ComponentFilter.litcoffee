@@ -1,6 +1,6 @@
 # ComponentFilter
 
-This class filters collections React components, often for
+This class filters collections of React components, often for
 the purpose of finding a DOM node with a specific CSS
 class, or ID.
 
@@ -18,7 +18,7 @@ if there are exactly 2 of them.
 
 ## Requirements
 
-The [JasmineMonad](./JasmineMonad.litcoffee)is a "maybe" monad that
+The [JasmineMonad](./JasmineMonad.litcoffee) is a "maybe" monad that
 allows us to chain our matcher functions in a fluent way.
 
     JasmineMonad = require("./JasmineMonad.litcoffee")
