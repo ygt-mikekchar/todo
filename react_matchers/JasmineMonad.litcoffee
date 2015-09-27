@@ -105,17 +105,6 @@ For example:
       count: (num, singular, plural) ->
         "#{num} #{singular.pluralize(num, plural)}"
 
-## Writing matchers
-
-A monad is not much use without a function to use it with.
-Here is an example of a matcher that does nothing:
-
-```
-monad.bind (value) ->
-  messages = [
-  ]
-```
-
 ## Export
 
     module.exports = JasmineMonad
