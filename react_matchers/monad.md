@@ -4,9 +4,8 @@ At the risk of writing "Yet another monad tutorial", I want to
 write a little bit about monads.
 
 Although many incredibly obtuse articles have been written about
-monads  -- [Wikipedia](https://en.wikipedia.org/wiki/Monad_(functional_programming)
-has, by far, the worst offender -- monads are actually quite simple.
-They are simply a class that wraps a value.  You can then run
+monads they are actually quite simple.
+Monads are simply a class that wraps a value.  You can then run
 some functions on the values in the class.  Monads have to follow
 some rules in order to be monads, but even without knowing these
 rules explicitly, you will be able to make and use monads.
