@@ -2,8 +2,8 @@
 
 We require the addons so that we can get the test utils
 
-    React = require("react/addons")
-    Utils = React.addons.TestUtils
+    React = require("react")
+    ReactTestUtils = require('react-addons-test-utils')
 
     TodoApp = require("../src/TodoApp.litcoffee")
 
@@ -13,14 +13,14 @@ in these thests.  It is being loaded by [spec/index.html](spec/index.html).
 We are also going to add some [React Matchers](../react_matchers/ReactMatchers.litcoffee)
 to jasmine to make our lives easier.
 
-    ReactMatchers = require("../react_matchers/ReactMatchers.litcoffee")
+    ReactMaybeMatchers = require("../third_party/react-maybe-matchers/lib/ReactMaybeMatchers.js")
 
     describe "Render a TodoApp", ->
       beforeEach ->
-        jasmine.addMatchers(ReactMatchers)
+        new ReactMaybeMatchers(ReactTestUtils).addTo(jasmine)
 
       When ->
-        @subject = Utils.renderIntoDocument(
+        @subject = ReactTestUtils.renderIntoDocument(
           <TodoApp />
         )
 **Back**
