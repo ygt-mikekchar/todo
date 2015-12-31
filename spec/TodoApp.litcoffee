@@ -10,7 +10,7 @@ We require the addons so that we can get the test utils
 Note: We are using [jasmine-given](https://github.com/searls/jasmine-given)
 in these thests.  It is being loaded by [spec/index.html](spec/index.html).
 
-We are also going to add some [React Matchers](../react_matchers/ReactMatchers.litcoffee)
+We are also going to add some [React Matchers](https://github.com/ygt-mikekchar/react-maybe-matchers)
 to jasmine to make our lives easier.
 
     ReactMaybeMatchers = require("../third_party/react-maybe-matchers/lib/ReactMaybeMatchers.js")
