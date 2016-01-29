@@ -51,7 +51,14 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React, ReactMaybeMatchers, ReactTestUtils, TodoApp;
+	var React, ReactMaybeMatchers, ReactTestUtils, TodoApp, lazy;
+
+	lazy = function(lambda) {
+	  var func;
+	  return func = function() {
+	    return func._memo || (func._memo = lambda());
+	  };
+	};
 
 	React = __webpack_require__(2);
 
@@ -63,14 +70,14 @@
 
 	describe("Render a TodoApp", function() {
 	  beforeEach(function() {
-	    return new ReactMaybeMatchers(ReactTestUtils).addTo(jasmine);
+	    new ReactMaybeMatchers(ReactTestUtils).addTo(jasmine);
+	    return this.subject = lazy(function() {
+	      return ReactTestUtils.renderIntoDocument(React.createElement(TodoApp, null));
+	    });
 	  });
-	  When(function() {
-	    return this.subject = ReactTestUtils.renderIntoDocument(React.createElement(TodoApp, null));
-	  });
-	  return Then(function() {
-	    return expect(this.subject).toBeAComponent(function(it) {
-	      return it.contains.tags("div")["with"].cssClass("js-todo-app").exactly(1).time.result();
+	  return it("reders a div", function() {
+	    return expect(this.subject()).toBeAComponent(function(which) {
+	      return which.contains.tags("div")["with"].cssClass("js-todo-app").exactly(1).time.result();
 	    });
 	  });
 	});
